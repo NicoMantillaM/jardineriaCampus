@@ -36,6 +36,27 @@ def getAllClientPaisRegionCiudad (pais,region=None, ciudad=None):
       clientZone.append(val)
   return  clientZone  
 
+def getAllClientCiudad (ciudad):
+  clienteCiud= list()
+  for val in cli.clientes:
+    if(
+      
+     (val.get("ciudad")== ciudad or val.get("ciudad") == None)
+    ):
+      clienteCiud.append(val)
+  return  clienteCiud
+
+def getAllDireccion1 ():
+  clienteDirecio1= list()
+  for val in cli.clientes:
+    direcion1= dict({ 
+    "codigo_cliente": val.get("codigo_cliente"),
+    "nombre_cliente": val.get("nombre_cliente"),
+    "linea_direccion1": val.get("linea_direccion1")
+    })
+    clienteDirecio1.append(direcion1)
+  return clienteDirecio1
+
 
     
   

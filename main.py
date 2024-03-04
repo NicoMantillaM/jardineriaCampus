@@ -1,6 +1,5 @@
 import modules.getClients as cliente
 
-
 from tabulate import tabulate
  
 # assign data
@@ -15,4 +14,4 @@ mydata = [
 head = ["Name", "City"]
  
 # display table
-print(tabulate(cliente.getAllClientPaisRegionCiudad("Spain", "Fuenlabrada", "Madrid")))
+print (tabulate(cliente.getAllDireccion1()))

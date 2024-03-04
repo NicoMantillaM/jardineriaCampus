@@ -1,3 +1,18 @@
-from modules.getClients import searchName
+import modules.getClients as cliente
 
-searchName()
+
+from tabulate import tabulate
+ 
+# assign data
+mydata = [
+    ["Nikhil", "Delhi"], 
+    ["Ravi", "Kanpur"], 
+    ["Manish", "Ahmedabad"], 
+      ["Prince", "Bangalore"]
+]
+ 
+# create header
+head = ["Name", "City"]
+ 
+# display table
+print(tabulate(cliente.getAllClientPaisRegionCiudad("Spain", "Fuenlabrada", "Madrid")))

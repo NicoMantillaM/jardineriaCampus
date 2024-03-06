@@ -84,6 +84,20 @@ def getAllClientFax():
     clientFax.append(fax)
   return clientFax
 
+#filtro 6
+def getAllClientsPais():
+  paiscliente= []
+  for val in cli.clientes:
+    if (val.get("pais")==("Spain")):
+      paiscliente.append(
+        {
+         "nombre": val.get("nombre_cliente"),
+         "pais": val.get("pais")
+        }
+      )
+  return paiscliente
+
+
 #def getAllClientContd(pais):
 #  try:
 #        from tabulate import tabulate

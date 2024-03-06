@@ -74,19 +74,30 @@ def getAllClientCreditEntre():
       clientCredit.append(val)
   return  clientCredit
 
-def getAllClientEmpleCodi():
-  clientEmCod =list()
+def getAllClientFax():
+  clientFax= list()
   for val in cli.clientes:
-    codigoEmpDup= dict({
-    "codigo_empleado_rep_ventas": val.get("codigo_empleado_rep_ventas")
-    if codigo_empleado:
-       if codigo_empleado in employee_codes:
-          employee_codes[codigo_empleado] += 1
-       else:
-          employee_codes[codigo_empleado] = 1
-    
-    codigoEmpDup = [code for code, count in clientEmCod.items() if count > 1]  })
-  return codigoEmpDup
+    fax= dict({
+      "nombre_cliente": val.get("nombre_cliente"),
+      "fax":  val.get("fax")
+    })
+    clientFax.append(fax)
+  return clientFax
+
+#def getAllClientContd(pais):
+#  try:
+#        from tabulate import tabulate
+# except ModuleNotFoundError:
+#        tabulate = None
+
+#  clientPaisRe= list()
+#  contador = 0
+#  for val in cli.clientes:
+#    if val.get('pais') == pais:
+#        contador = contador + 1
+#    clientPaisRe.append(contador)
+# return clientPaisRe
+
 
 
 

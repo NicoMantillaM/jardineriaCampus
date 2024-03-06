@@ -14,4 +14,4 @@ mydata = [
 head = ["Name", "City"]
  
 # display table
-print (tabulate(cliente.getAllClientEmpleCodi()))
+print (tabulate(cliente.getAllClientContd('France')))

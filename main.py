@@ -6,4 +6,4 @@ import modules.getEmpleado as empleado
 import modules.getPedido as pedido
 
 
-print (tabulate(pedido.getAllProcesoPedido()))
+print (tabulate(pedido.getAllEnEnero()))

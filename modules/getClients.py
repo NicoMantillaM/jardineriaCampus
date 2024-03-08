@@ -98,19 +98,6 @@ def getAllClientsPais():
   return paiscliente
 
 
-#def getAllClientContd(pais):
-#  try:
-#        from tabulate import tabulate
-# except ModuleNotFoundError:
-#        tabulate = None
-
-#  clientPaisRe= list()
-#  contador = 0
-#  for val in cli.clientes:
-#    if val.get('pais') == pais:
-#        contador = contador + 1
-#    clientPaisRe.append(contador)
-# return clientPaisRe
 
 
 

@@ -1,14 +1,15 @@
 import storage.pedido as pe
+#filtro 7
+def getAllEstadoPedido():
+    estadoPedidos = []
+    for val in pe.pedido:
+        estadoPedidos.append({
+                    "codigo_pedido": val.get("codigo_pedido"),
+                    "estado": val.get('estado')
+                    })
+    return estadoPedidos
 
-#def getAllProcesoPedido():
-#    ProcesoPedidos = []
-#    for val in pe.pedido:
-#        ProcesoPedidos.append({
-#                    "codigo_pedido": val.get("codigo_pedido"),
-#                    "estado": val.get('estado')
-#                    })
-#    return ProcesoPedidos
-
+#filtro 9
 from datetime import datetime
 
 # delvuelve un listado con el codgio d epedido,,

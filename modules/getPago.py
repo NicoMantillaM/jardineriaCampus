@@ -1,5 +1,23 @@
 import storage.pago as pa 
 
+#filtro 8
+def getAllCodigosPagosAño():
+    CodigosAño = []
+    codigos_vistos = set()
+    for val in pa.pago:
+        if "2008" in val.get("fecha_pago"):
+            codigo_cliente = val.get("codigo_cliente")
+            if codigo_cliente not in codigos_vistos:
+                CodigosAño.append(
+                    {
+                        "codigo_cliente": codigo_cliente,
+                        "fecha": val.get("fecha_pago"),
+                        "total": val.get("total")
+                    }
+                )
+                codigos_vistos.add(codigo_cliente)
+    return CodigosAño
+
 #pagos- filtro 13
 def getAllAñoPaypal():
     pagosPaypal= []
@@ -27,7 +45,7 @@ def getAllAñoFormasPa():
                 "total":val.get("total")
             })
     formasVistas.add(forma_pago)
-    
+
     return formaspago 
         
     

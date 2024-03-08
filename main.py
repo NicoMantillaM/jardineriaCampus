@@ -7,5 +7,5 @@ import modules.getPedido as pedido
 import modules.getPago as pago
 
 
-print (tabulate(pago.getAllAñoPaypal(),tablefmt="grid"))
+print (tabulate(pago.getAllAñoFormasPa(),tablefmt="grid"))
 

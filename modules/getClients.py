@@ -1,5 +1,7 @@
 import storage.cliente as cli
 
+from tabulate import tabulate
+
 def getAllClientesName():
   clienteName= list()
   for val in cli.clientes:
@@ -13,16 +15,20 @@ def getAllClientesName():
 def getOneClientcodigo(codigo):
   for val in cli.clientes:
     if (val.get("codigo_cliente")== codigo):
-      return { 
+      return [{ 
       "codigo_cliente": val.get("codigo_cliente"),
       "nombre_cliente": val.get("nombre_cliente")
-     }
+     }]
 
 def getAllClientCreditCiudad(limite_credit, ciudad):
   clienteCredic= list()
   for val in cli.clientes:
    if (val.get("limite_credito") >= limite_credit and val.get("ciudad") == ciudad):
-      clienteCredic.append(val)
+      clienteCredic.append({
+        "Codigo": val.get("codigo_cliente"),
+        "Nombre del  Cliente": val.get("nombre_cliente"),
+        "Director":f"{val.get("nombre_contacto")} {val.get("linea_direccion2")}",
+      })
   return  clienteCredic
 
 def getAllClientPaisRegionCiudad (pais,region=None, ciudad=None):
@@ -98,8 +104,21 @@ def getAllClientsPais():
   return paiscliente
 
 
+def menu():
+  print(""" 
+Reportes de los clientes
+1.Obtener todos los clientes (codigo y nombre)
+2.Obtener un cliente por su codigo(codigo y su nombre)
+3.Obtener toda la informacion de un cliente
 
-
+""")
+  opcion = int(input("\nSeleccione una de las opciones:"))
+  if(opcion == 1):
+    print(tabulate(getAllClientesName(),tablefmt="grid"))
+  elif(opcion == 2):
+    codigo= int(input("Ingrese el codigo del cliente: "))
+    print(tabulate(getOneClientcodigo(codigo),tablefmt="grid"))
+  
 
 
 

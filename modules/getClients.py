@@ -27,7 +27,7 @@ def getAllClientCreditCiudad(limite_credit, ciudad):
       clienteCredic.append({
         "Codigo": val.get("codigo_cliente"),
         "Nombre del  Cliente": val.get("nombre_cliente"),
-        "Director":f"{val.get("nombre_contacto")} {val.get("nombre_contacto")}",
+        "Director":f"{val.get('nombre_contacto')} {val.get('nombre_contacto')}",
         "Telefono":val.get('telefono'),
         "Fax":val.get('fax'),
         "Direcciones":f"{val.get('linea_direccion1')} {val.get('linea_direccion2')}",
@@ -66,21 +66,19 @@ def getAllClientDireccion1():
     "nombre_cliente": val.get("nombre_cliente"),
     "linea_direccion1": val.get("linea_direccion1")
     })
-    clientDireccion1.append(direccion1)
+    clientDireccion1.append(val)
   return clientDireccion1
 
 def getAllClientTelefono():
-  clientTelefono= list()
+  clientTelefono=[]
   for val in cli.clientes:
-    telefono= dict({ 
-    "codigo_cliente": val.get("codigo_cliente"),
-    "nombre_cliente": val.get("nombre_cliente"),
-    "telefono": val.get("telefono")
-    })
-    clientTelefono.append(telefono)
+    clientTelefono.append({
+      "nombre_cliente": val.get("nombre_cliente"),
+      "telefono": val.get("telefono")
+      })
   return clientTelefono
 
-def getAllClientCreditEntre():
+def getAllClientCreditEntre(codigo):
   clientCredit= list()
   for val in cli.clientes:
    if(val.get("limite_credito")>= 5000 and val.get("limite_credito") <= 10000):
@@ -94,7 +92,7 @@ def getAllClientFax():
       "nombre_cliente": val.get("nombre_cliente"),
       "fax":  val.get("fax")
     })
-    clientFax.append(fax)
+    clientFax.append(val)
   return clientFax
 
 #filtro 6
@@ -117,7 +115,8 @@ Reportes de los clientes
 1.Obtener todos los clientes (codigo y nombre)
 2.Obtener un cliente por su codigo(codigo y su nombre)
 3.Obtener toda la informacion de un cliente segun su limite de credito y ciudad
-4.
+4.Obtener todos los clientes que cuenten con un limite de credito entre 5000 y 10000 
+5.Obtener todos los telefonos de todos los clientes
 """)
   opcion = int(input("\nSeleccione una de las opciones:"))
   if(opcion == 1):
@@ -126,18 +125,14 @@ Reportes de los clientes
     codigo= int(input("Ingrese el codigo del cliente: "))
     print(tabulate(getOneClientcodigo(codigo),tablefmt="grid"))
   elif(opcion == 3):
-    clienteCredic= float(input)("/n Ingrese el limite de credito")
+    clienteCredic= float(input("\nIngrese el limite de credito"))
+    ciudad= str(input("\n Ingrese la ciudad"))
+    print(tabulate(getOneClientcodigo(clienteCredic,ciudad),tablefmt="grid"))
+  elif(opcion == 4):
+    clientCredit= float(input("\n Ingrese el limite de credito"))
+    print(tabulate(getAllClientCreditEntre(clientCredit),tablefmt="grid"))
+  elif(opcion == 5):
+    print(tabulate(getAllClientTelefono(),tablefmt="grid"))
 
-
+     
   
-
-
-
-
-
-
-    
-  
- 
-
-

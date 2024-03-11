@@ -1,5 +1,7 @@
 import storage.pago as pa 
 
+from tabulate import tabulate
+
 #filtro 8
 def getAllCodigosPagosAño():
     CodigosAño = []
@@ -48,4 +50,17 @@ def getAllAñoFormasPa():
 
     return formaspago 
         
-    
+def menu():
+    print(""" 
+1.Obtener el código de cliente de aquellos clientes que realizaron algún pago en 2008
+2.Obtener todos los pagos que se realizaron en el año 2008 mediante Paypal
+3.Obtener todas las formas de pago
+""")
+    opcion = int(input("\nSeleccione una de las opciones:"))
+    if(opcion == 1):
+        print(tabulate(getAllCodigosPagosAño(),tablefmt="grid"))
+    elif(opcion == 2):
+        print(tabulate(getAllAñoPaypal(),tablefmt="grid"))
+    elif(opcion == 3):
+        print(tabulate(getAllAñoFormasPa(),tablefmt="grid"))
+        

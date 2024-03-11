@@ -69,14 +69,15 @@ def getAllClientDireccion1():
     clientDireccion1.append(val)
   return clientDireccion1
 
-def getAllClientTelefono():
-  clientTelefono=[]
+def getOneClienttelefono(telefono):
   for val in cli.clientes:
-    clientTelefono.append({
+    if (val.get("telefono")== telefono):
+      return [{
+      "codigo_cliente": val.get("codigo_cliente"),
       "nombre_cliente": val.get("nombre_cliente"),
-      "telefono": val.get("telefono")
-      })
-  return clientTelefono
+      "telefono":val.get('telefono')
+      }]
+ 
 
 def getAllClientCreditEntre(codigo):
   clientCredit= list()
@@ -116,7 +117,7 @@ Reportes de los clientes
 2.Obtener un cliente por su codigo(codigo y su nombre)
 3.Obtener toda la informacion de un cliente segun su limite de credito y ciudad
 4.Obtener todos los clientes que cuenten con un limite de credito entre 5000 y 10000 
-5.Obtener todos los telefonos de todos los clientes
+5.Obtener un cliente por su telefono (codigo, nombre)
 """)
   opcion = int(input("\nSeleccione una de las opciones:"))
   if(opcion == 1):
@@ -132,7 +133,9 @@ Reportes de los clientes
     clientCredit= float(input("\n Ingrese el limite de credito"))
     print(tabulate(getAllClientCreditEntre(clientCredit),tablefmt="grid"))
   elif(opcion == 5):
-    print(tabulate(getAllClientTelefono(),tablefmt="grid"))
+    telefono= int(input("\nIngrese el telefono del cliente: "))
+    print(tabulate(getOneClienttelefono(telefono),tablefmt="grid"))
+
 
      
   

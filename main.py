@@ -27,6 +27,7 @@ Menu Principal
 2.oficina 
 3.empleado
 4.pedido
+5.pago
 """)
     opcion = int(input("\nSeleccione una de las opciones: "))
     if(opcion==1):
@@ -37,4 +38,6 @@ Menu Principal
         empleado.menu()
     elif(opcion==4):
         pedido.menu()
+    elif(opcion==5):
+        pago.menu()
 menu()

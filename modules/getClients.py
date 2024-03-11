@@ -111,7 +111,6 @@ def getAllClientsPais():
 
 def menu():
   while True:
-    
     print(""" 
         
 Reportes de los clientes
@@ -130,11 +129,14 @@ Reportes de los clientes
           codigo= int(input("Ingrese el codigo del cliente: "))
           print(tabulate(getOneClientcodigo(codigo),tablefmt="grid"))
         except KeyboardInterrupt:
-          menu() 
+          return menu()
     elif(opcion == 3):
-      clienteCredic= float(input("\nIngrese el limite de credito"))
-      ciudad= str(input("\n Ingrese la ciudad"))
-      print(tabulate(getOneClientcodigo(clienteCredic,ciudad),tablefmt="grid"))
+      try:
+        clienteCredic= float(input("\nIngrese el limite de credito"))
+        ciudad= str(input("\n Ingrese la ciudad"))
+        print(tabulate(getOneClientcodigo(clienteCredic,ciudad),tablefmt="grid"))
+      except KeyboardInterrupt:
+        return menu()
     elif(opcion == 4):
       clientCredit= float(input("\n Ingrese el limite de credito"))
       print(tabulate(getAllClientCreditEntre(clientCredit),tablefmt="grid"))
@@ -144,9 +146,11 @@ Reportes de los clientes
     elif(opcion == 0):
       break
     
-    try:
-      entrada = input("Ingresa Ctrl + c para ir a menu: ")
-    # Aquí puedes hacer lo que necesites con la entrada
-      print("Entrada recibida:", entrada)
-    except KeyboardInterrupt:
-      menu()  
+    # try:
+    #   entrada = input("Ingresa Ctrl + c para ir a menu: ")
+    # # Aquí puedes hacer lo que necesites con la entrada
+    #   print("Entrada recibida:", entrada)
+    # except KeyboardInterrupt:
+    #   return menu()
+      
+      

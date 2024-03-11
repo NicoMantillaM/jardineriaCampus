@@ -9,7 +9,7 @@ import modules.getPago as pago
 import sys
 #def menu():
 #    contador = 1
-#     print("Menu Principal")
+#     print("Menu Principal")1
 #     for nombre, objeto in sys.modules.items():
 #         if nombre.startswith("modules"):
 #             modulo = getattr(objeto, "__name__", None)
@@ -19,25 +19,27 @@ import sys
 # menu()
 
 if(__name__ == "__main__"):
-   def menu():
-    #https://patorjk.com/software/taag/#p=display&h=2&v=2&f=Slant&t=Menu%20Principal
-    print("""
+    while True:
+        print("""
 Menu Principal
+0.Salir
 1.cliente
 2.oficina 
 3.empleado
 4.pedido
 5.pago
 """)
-    opcion = int(input("\nSeleccione una de las opciones: "))
-    if(opcion==1):
-        cliente.menu()
-    elif(opcion==2):
-        oficina.menu()
-    elif(opcion==3):
-        empleado.menu()
-    elif(opcion==4):
-        pedido.menu()
-    elif(opcion==5):
-        pago.menu()
-menu()
+        opcion = int(input("\nSeleccione una de las opciones: "))
+        if(opcion==1):
+            cliente.menu()
+        elif(opcion==2):
+            oficina.menu()
+        elif(opcion==3):
+            empleado.menu()
+        elif(opcion==4):
+            pedido.menu()
+        elif(opcion==5):
+            pago.menu()
+        elif(opcion==0):
+            break
+

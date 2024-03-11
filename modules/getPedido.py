@@ -1,5 +1,6 @@
 import storage.pedido as pe
 
+
 from tabulate import tabulate
 
 #filtro 7
@@ -92,21 +93,27 @@ def getAllEnEnero():
     return pedidosEnero
 
 def menu():
-    print(""" 
+    while True:
+        print(""" 
+Reportes de los pedidos
+0.Regresar a menu principal
 1.Obtener los distintos estados por los que puede pasar un pedido 
 2.Obtener codigo-pedido,  codigo-cliente, fecha-esperada y fecha-entrega de los pedidos entregados a tiempo
 3.Obtener informacion de los pedidos cuya entrega ha sido al menos dos días antes de la fecha esperada
 4.Obtener todos los pedidos que fueron rechazados en el 2009, con su respectivo comentario
 5.Obtener todos los pedidos que fueron entregados en el mes de enero de cualquier año
+
 """)
-    opcion = int(input("\nSeleccione una de las opciones:"))
-    if(opcion == 1):
-        print(tabulate(getAllEstadoPedido(),tablefmt="grid"))
-    elif(opcion == 2):
-        print(tabulate(getAllPedidosEntregadosAtrasadosDeTiempo(),tablefmt="grid"))
-    elif(opcion == 3):
-        print(tabulate(getAllPedidosEntregadosDosDiasAnt(),tablefmt="grid"))
-    elif(opcion == 4):
-        print(tabulate(getAllPedidosRechazados2009(),tablefmt="grid"))
-    elif(opcion == 5):
-        print(tabulate(getAllEnEnero(),tablefmt="grid"))
+        opcion = int(input("\nSeleccione una de las opciones:"))
+        if(opcion == 1):
+            print(tabulate(getAllEstadoPedido(),tablefmt="grid"))
+        elif(opcion == 2):
+            print(tabulate(getAllPedidosEntregadosAtrasadosDeTiempo(),tablefmt="grid"))
+        elif(opcion == 3):
+            print(tabulate(getAllPedidosEntregadosDosDiasAnt(),tablefmt="grid"))
+        elif(opcion == 4):
+            print(tabulate(getAllPedidosRechazados2009(),tablefmt="grid"))
+        elif(opcion == 5):
+            print(tabulate(getAllEnEnero(),tablefmt="grid"))
+        elif(opcion == 0):
+            break

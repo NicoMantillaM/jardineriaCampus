@@ -51,17 +51,22 @@ def getAllNomApePuestoVec():
     return nombreApellidoPuesto
 
 def menu():
-    print(""" 
+    while True:
+        
+        print("""
+Reportes de los empleados             
+0.Regresar a menu principal
 1.Obtener la informacion del jefe por su codigo
 2.Obtener el nombre, apellidos y email del jefe de la empresa
 3.Obtener el nombre, apellidos y puesto de aquellos empleados que no sean Representantes de ventas
 """)
-    opcion = int(input("\nSeleccione una de las opciones:"))
-    if(opcion == 1):
-        codigo=int(input("\nIngrese el codigo de jefe: " ))
-        print(tabulate(getAllNombreApellidoEmailJefe(codigo),tablefmt="grid"))
-    elif(opcion == 2):
-        print(tabulate(getAllNomApeJefeEmpresa(),tablefmt="grid"))
-    elif(opcion == 3):
-        print(tabulate(getAllNomApePuestoVec(),tablefmt="grid"))
-    
+        opcion = int(input("\nSeleccione una de las opciones:"))
+        if(opcion == 1):
+            codigo=int(input("\nIngrese el codigo de jefe: " ))
+            print(tabulate(getAllNombreApellidoEmailJefe(codigo),tablefmt="grid"))
+        elif(opcion == 2):
+            print(tabulate(getAllNomApeJefeEmpresa(),tablefmt="grid"))
+        elif(opcion == 3):
+            print(tabulate(getAllNomApePuestoVec(),tablefmt="grid"))
+        elif(opcion == 0):
+            break

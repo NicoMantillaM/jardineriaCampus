@@ -1,5 +1,4 @@
 import storage.cliente as cli
-
 from tabulate import tabulate
 
 def getAllClientesName():
@@ -111,31 +110,43 @@ def getAllClientsPais():
 
 
 def menu():
-  print(""" 
+  while True:
+    
+    print(""" 
+        
 Reportes de los clientes
+0.Regresar al menu principal
 1.Obtener todos los clientes (codigo y nombre)
 2.Obtener un cliente por su codigo(codigo y su nombre)
 3.Obtener toda la informacion de un cliente segun su limite de credito y ciudad
 4.Obtener todos los clientes que cuenten con un limite de credito entre 5000 y 10000 
 5.Obtener un cliente por su telefono (codigo, nombre)
 """)
-  opcion = int(input("\nSeleccione una de las opciones:"))
-  if(opcion == 1):
-    print(tabulate(getAllClientesName(),tablefmt="grid"))
-  elif(opcion == 2):
-    codigo= int(input("Ingrese el codigo del cliente: "))
-    print(tabulate(getOneClientcodigo(codigo),tablefmt="grid"))
-  elif(opcion == 3):
-    clienteCredic= float(input("\nIngrese el limite de credito"))
-    ciudad= str(input("\n Ingrese la ciudad"))
-    print(tabulate(getOneClientcodigo(clienteCredic,ciudad),tablefmt="grid"))
-  elif(opcion == 4):
-    clientCredit= float(input("\n Ingrese el limite de credito"))
-    print(tabulate(getAllClientCreditEntre(clientCredit),tablefmt="grid"))
-  elif(opcion == 5):
-    telefono= int(input("\nIngrese el telefono del cliente: "))
-    print(tabulate(getOneClienttelefono(telefono),tablefmt="grid"))
-
-
-     
-  
+    opcion = int(input("\nSeleccione una de las opciones:"))
+    if(opcion == 1):
+      print(tabulate(getAllClientesName(),tablefmt="grid"))
+    elif(opcion == 2):
+        try: 
+          codigo= int(input("Ingrese el codigo del cliente: "))
+          print(tabulate(getOneClientcodigo(codigo),tablefmt="grid"))
+        except KeyboardInterrupt:
+          menu() 
+    elif(opcion == 3):
+      clienteCredic= float(input("\nIngrese el limite de credito"))
+      ciudad= str(input("\n Ingrese la ciudad"))
+      print(tabulate(getOneClientcodigo(clienteCredic,ciudad),tablefmt="grid"))
+    elif(opcion == 4):
+      clientCredit= float(input("\n Ingrese el limite de credito"))
+      print(tabulate(getAllClientCreditEntre(clientCredit),tablefmt="grid"))
+    elif(opcion == 5):
+      telefono= int(input("\nIngrese el telefono del cliente: "))
+      print(tabulate(getOneClienttelefono(telefono),tablefmt="grid"))
+    elif(opcion == 0):
+      break
+    
+    try:
+      entrada = input("Ingresa Ctrl + c para ir a menu: ")
+    # Aquí puedes hacer lo que necesites con la entrada
+      print("Entrada recibida:", entrada)
+    except KeyboardInterrupt:
+      menu()  

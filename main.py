@@ -6,7 +6,7 @@ import modules.getOficina as oficina
 import modules.getEmpleado as empleado
 import modules.getPedido as pedido
 import modules.getPago as pago
-
+import modules.getProducto as producto
 
 import sys
 #def menu():
@@ -43,6 +43,8 @@ Menu Principal
             pedido.menu()
         elif(opcion==5):
             pago.menu()
+        elif(opcion==6):
+            producto.menu()
         elif(opcion==0):
             break
 

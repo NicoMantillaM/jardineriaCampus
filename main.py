@@ -30,6 +30,7 @@ Menu Principal
 3.empleado
 4.pedido
 5.pago
+6.producto
 """)
         opcion = int(input("\nSeleccione una de las opciones: "))
         if(opcion==1):

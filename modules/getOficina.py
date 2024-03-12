@@ -38,23 +38,28 @@ def getOneCodigoPostal(codigoPost):
 
 def menu():
     while True:
-        
-    
         print(""" 
 Reportes de las oficinas
 0.Regresar a menu principal
 1.Obtener todos los codigos de oficina con su ciudad 
 2.Obtener la ciudad y telefono de oficina segun el pais
 3.Obtener el codigo de oficina, la region y el telefono de la oficina por codigo postal
+  -PRESIONA CTRL + C PARA REGRESAR AL MENU PRINCIPAL            
 """)
-        opcion = int(input("\nSeleccione una de las opciones:"))
-        if(opcion == 1):
-            print(tabulate(getAllCodigoCiudad(),tablefmt="grid"))
-        elif(opcion == 2):
-            pais= str(input("\nIngrese el pais: " ))
-            print(tabulate(getAllCiudadTelefono(pais),tablefmt="grid"))
-        elif(opcion == 3):
-            codigoPost= str(input("\nIngrese el codigo postal: " ))
-            print(tabulate(getOneCodigoPostal(codigoPost),tablefmt="grid"))
-        elif(opcion == 0):
-                break
+        try:
+            opcion = int(input("\nSeleccione una de las opciones:"))
+            if(opcion == 1):
+                print(tabulate(getAllCodigoCiudad(),tablefmt="grid"))
+            elif(opcion == 2):
+                pais= str(input("\nIngrese el pais: " ))
+                print(tabulate(getAllCiudadTelefono(pais),tablefmt="grid"))
+            elif(opcion == 3):
+                codigoPost= str(input("\nIngrese el codigo postal: " ))
+                print(tabulate(getOneCodigoPostal(codigoPost),tablefmt="grid"))
+            elif(opcion == 0):
+                    break
+        except KeyboardInterrupt:
+            print()
+            print()
+            print("saliendo...")
+            break

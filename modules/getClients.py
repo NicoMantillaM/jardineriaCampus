@@ -1,4 +1,5 @@
 import storage.cliente as cli
+import storage.empleado as em 
 from tabulate import tabulate
 
 def getAllClientesName():
@@ -106,6 +107,34 @@ def getAllClientsPais():
         }
       )
   return paiscliente
+#filtro 16
+def getAllCiudadCodigo():
+  codigoCiudad= []
+  for val in cli.clientes:
+    if val.get("ciudad")== "Madrid":
+      if val.get("codigo_empleado_rep_ventas")== 11 or val.get("codigo_empleado_rep_ventas")== 30:
+        codigoCiudad.append({
+          "codigo_cliente": val.get("codigo_cliente"),
+          "nombre_cliente": val.get("nombre_cliente"),
+          "ciudad": val.get("ciudad"),
+          "codigo_empleado_rep_ventas": val.get("codigo_empleado_rep_ventas")
+    })
+  return codigoCiudad
+
+def getAllClientsRepre():
+  clientesRepre= []
+  for val in cli.clientes:
+    for val2 in em.empleado:
+      if val.get("codigo_empleado_rep_ventas")== val2.get("codigo_empleado") and val2.get ("puesto")== ("Representante Ventas"):
+       clientesRepre.append({
+          "codigo_cliente": val.get("codigo_cliente"),
+         "nombre_cliente": val.get("nombre_cliente"),
+         "nombre": val2.get("nombre"),
+         "apellido": f"{val2.get('apellido1')} {val2.get('apellido2')}"
+
+       })
+  return clientesRepre
+    
 
 
 def menu():
@@ -119,6 +148,8 @@ Reportes de los clientes
 3.Obtener toda la informacion de un cliente segun su limite de credito y ciudad
 4.Obtener todos los clientes que cuenten con un limite de credito entre 5000 y 10000 
 5.Obtener un cliente por su telefono (codigo, nombre)
+6.Obtener todos los clientes de la ciudad de madrid junto con sus representantes de ventas que tengan su codigo en 11 o 30
+7.Obtener el nombre de todos los clientes junto con el nombre y los apellidos de sus representantes de ventas 
   -PRESIONA CTRL + C PARA REGRESAR AL MENU PRINCIPAL
 """)
     try:
@@ -143,6 +174,10 @@ Reportes de los clientes
       elif(opcion == 5):
         telefono= str(input("\nIngrese el telefono del cliente: "))
         print(tabulate(getOneClienttelefono(telefono),tablefmt="grid"))
+      elif(opcion == 6):
+        print(tabulate(getAllCiudadCodigo(),tablefmt="grid"))
+      elif(opcion == 7):
+        print(tabulate(getAllClientsRepre(),tablefmt="grid"))  
       elif(opcion == 0):
         break
     except KeyboardInterrupt:

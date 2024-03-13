@@ -1,5 +1,6 @@
 import storage.pago as pa 
-
+import storage.cliente as cli
+import storage.empleado as em 
 from tabulate import tabulate
 
 #filtro 8
@@ -49,7 +50,38 @@ def getAllAñoFormasPa():
     formasVistas.add(forma_pago)
 
     return formaspago 
-        
+
+def getAllClientsPagos():
+    clientespago= []
+    for val in cli.clientes:
+        for val2 in pa.pago: 
+            for val3 in em.empleado:
+                if val2.get("codigo_cliente")== val.get("codigo_cliente") and val.get("codigo_empleado_rep_ventas")== val3.get("codigo_empleado"):
+                        clientespago.append(
+                            {
+                            "codigo_cliente": val.get("codigo_cliente"),
+                            "nombre_cliente": val.get("nombre_cliente"),
+                            "nombre": val3.get("nombre")
+                            }
+                            )
+    return clientespago
+
+def getAllClientsNoPagos():
+    clientesNopago= []
+    for val in cli.clientes:
+        for val2 in pa.pago: 
+            for val3 in em.empleado:
+                if not val2.get("codigo_cliente")== val.get("codigo_cliente") and val.get("codigo_empleado_rep_ventas")== val3.get("codigo_empleado"):
+                        clientesNopago.append(
+                            {
+                            "codigo_cliente": val.get("codigo_cliente"),
+                            "nombre_cliente": val.get("nombre_cliente"),
+                            "nombre": val3.get("nombre")
+                            }
+                            )
+    return clientesNopago
+     
+
 def menu():
     while True:
         print("""
@@ -58,14 +90,26 @@ Reportes de los pagos
 1.Obtener el código de cliente de aquellos clientes que realizaron algún pago en 2008
 2.Obtener todos los pagos que se realizaron en el año 2008 mediante Paypal
 3.Obtener todas las formas de pago
+4.Obtener todos los clientes que hayan realizado pagos, junto con sus representantes de ventas
+5.Obtener todos los clientes que no realizaron pagos, junto con sus representantes de ventas
+    -PRESIONA CTRL + C PARA REGRESAR AL MENU PRINCIPAL
 """)
-        opcion = int(input("\nSeleccione una de las opciones:"))
-        if(opcion == 1):
-            print(tabulate(getAllCodigosPagosAño(),tablefmt="grid"))
-        elif(opcion == 2):
-            print(tabulate(getAllAñoPaypal(),tablefmt="grid"))
-        elif(opcion == 3):
-            print(tabulate(getAllAñoFormasPa(),tablefmt="grid"))
-        elif(opcion == 0):
+        try:
+            opcion = int(input("\nSeleccione una de las opciones:"))
+            if(opcion == 1):
+                print(tabulate(getAllCodigosPagosAño(),tablefmt="grid"))
+            elif(opcion == 2):
+                    print(tabulate(getAllAñoPaypal(),tablefmt="grid"))
+            elif(opcion == 3):
+                    print(tabulate(getAllAñoFormasPa(),tablefmt="grid"))
+            elif(opcion == 4):
+                    print(tabulate(getAllClientsPagos(),tablefmt="grid"))
+            elif(opcion == 5):
+                    print(tabulate(getAllClientsNoPagos(),tablefmt="grid"))
+            elif(opcion == 0):
+                    break
+        except KeyboardInterrupt:
             break
+             
+             
             

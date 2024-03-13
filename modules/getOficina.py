@@ -59,7 +59,4 @@ Reportes de las oficinas
             elif(opcion == 0):
                     break
         except KeyboardInterrupt:
-            print()
-            print()
-            print("saliendo...")
             break

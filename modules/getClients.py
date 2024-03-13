@@ -126,16 +126,16 @@ def getAllClientsRepre():
   for val in cli.clientes:
     for val2 in em.empleado:
       if val.get("codigo_empleado_rep_ventas")== val2.get("codigo_empleado") and val2.get ("puesto")== ("Representante Ventas"):
-       clientesRepre.append({
-          "codigo_cliente": val.get("codigo_cliente"),
+       clientesRepre.append(
+         {
+         "codigo_cliente": val.get("codigo_cliente"),
          "nombre_cliente": val.get("nombre_cliente"),
          "nombre": val2.get("nombre"),
          "apellido": f"{val2.get('apellido1')} {val2.get('apellido2')}"
-
-       })
+         }
+        )
   return clientesRepre
     
-
 
 def menu():
   while True:
@@ -181,9 +181,6 @@ Reportes de los clientes
       elif(opcion == 0):
         break
     except KeyboardInterrupt:
-      print()
-      print()
-      print("saliendo...")
       break
 
 

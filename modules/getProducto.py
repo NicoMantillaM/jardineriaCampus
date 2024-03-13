@@ -34,11 +34,15 @@ def menu():
 REPORTES DE LOS PRODUCTOS
 0.Regresar al menu principal
 1.Obtener productos de una categoria ordenando su precio de venta y rectificando que su cantidad de stock sea superior
+    -PRESIONA CTRL + C PARA REGRESAR AL MENU PRINCIPAL
 """)
-        opcion=int(input("Seleccione una de las opciones: "))
-        if (opcion==1):
-            gama=input("Ingrese la gama del producto: ")
-            stock=int(input("Ingrese el stock del producto: "))
-            print(tabulate(getAllStocksPriceGama(gama,stock),headers="keys",tablefmt="grid"))
-        elif(opcion==0):
+        try:
+            opcion=int(input("Seleccione una de las opciones: "))
+            if (opcion==1):
+                gama=input("Ingrese la gama del producto: ")
+                stock=int(input("Ingrese el stock del producto: "))
+                print(tabulate(getAllStocksPriceGama(gama,stock),headers="keys",tablefmt="grid"))
+            elif(opcion==0):
+                break
+        except KeyboardInterrupt:
             break

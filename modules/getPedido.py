@@ -102,18 +102,21 @@ Reportes de los pedidos
 3.Obtener informacion de los pedidos cuya entrega ha sido al menos dos días antes de la fecha esperada
 4.Obtener todos los pedidos que fueron rechazados en el 2009, con su respectivo comentario
 5.Obtener todos los pedidos que fueron entregados en el mes de enero de cualquier año
-
+    -PRESIONA CTRL + C PARA REGRESAR AL MENU PRINCIPAL          
 """)
-        opcion = int(input("\nSeleccione una de las opciones:"))
-        if(opcion == 1):
-            print(tabulate(getAllEstadoPedido(),tablefmt="grid"))
-        elif(opcion == 2):
-            print(tabulate(getAllPedidosEntregadosAtrasadosDeTiempo(),tablefmt="grid"))
-        elif(opcion == 3):
-            print(tabulate(getAllPedidosEntregadosDosDiasAnt(),tablefmt="grid"))
-        elif(opcion == 4):
-            print(tabulate(getAllPedidosRechazados2009(),tablefmt="grid"))
-        elif(opcion == 5):
-            print(tabulate(getAllEnEnero(),tablefmt="grid"))
-        elif(opcion == 0):
+        try:
+            opcion = int(input("\nSeleccione una de las opciones:"))
+            if(opcion == 1):
+                print(tabulate(getAllEstadoPedido(),tablefmt="grid"))
+            elif(opcion == 2):
+                print(tabulate(getAllPedidosEntregadosAtrasadosDeTiempo(),tablefmt="grid"))
+            elif(opcion == 3):
+                print(tabulate(getAllPedidosEntregadosDosDiasAnt(),tablefmt="grid"))
+            elif(opcion == 4):
+                print(tabulate(getAllPedidosRechazados2009(),tablefmt="grid"))
+            elif(opcion == 5):
+                print(tabulate(getAllEnEnero(),tablefmt="grid"))
+            elif(opcion == 0):
+                break
+        except KeyboardInterrupt:
             break

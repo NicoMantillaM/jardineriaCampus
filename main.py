@@ -28,7 +28,7 @@ def menuProducto():
         print("""
 Bienvenido al menu de prodcuctos
 0.Regresar al menu principal
-1.Reportes de los productsos
+1.Reportes de los productos
 2.Guardar, Actualizar y Eliminar productos
 """)
         opcion = int(input("\nSelecione una de las opciones: "))

@@ -1,12 +1,18 @@
-import storage.pedido as pe
+import requests
 from datetime import datetime
 
 from tabulate import tabulate
 
+def getAllDataPedido():
+  #json-server storage/pedido.json -b 55010
+  peticion=requests.get("http://192.168.1.11:5510")
+  data= peticion.json()
+  return data
+
 #filtro 7
 def getAllEstadoPedido():
     estadoPedidos = []
-    for val in pe.pedido:
+    for val in getAllDataPedido:
         estadoPedidos.append({
                     "codigo_pedido": val.get("codigo_pedido"),
                     "estado": val.get('estado')
@@ -23,7 +29,7 @@ from datetime import datetime
 
 def getAllPedidosEntregadosAtrasadosDeTiempo():
     pedidosEntregado= []
-    for val in pe.pedido:
+    for val in getAllDataPedido:
         if val.get("estado") == "Entregado" and val.get("fecha_entrega") is None:
             val["fecha_entrega"] = val.get("fecha_esperada")    
         if val.get("estado") == "Entregado":
@@ -46,7 +52,7 @@ def getAllPedidosEntregadosAtrasadosDeTiempo():
     
 def getAllPedidosEntregadosDosDiasAnt():
     pedidosEntregadoAntes= []
-    for val in pe.pedido:
+    for val in getAllDataPedido:
         if val.get("estado") == "Entregado" and val.get("fecha_entrega") is None:
             val["fecha_entrega"] = val.get("fecha_esperada")    
         if val.get("estado") == "Entregado":
@@ -68,7 +74,7 @@ def getAllPedidosEntregadosDosDiasAnt():
 
 def getAllPedidosRechazados2009():
     pedidosRechazados= []
-    for val in pe.pedido:
+    for val in getAllDataPedido:
         if "2009" in val.get("fecha_pedido") and val.get("estado")== "Rechazado":        
             pedidosRechazados.append(val)                                                                   
     return pedidosRechazados
@@ -78,7 +84,7 @@ def getAllPedidosRechazados2009():
 
 def getAllEnEnero():
     pedidosEnero= []
-    for val in pe.pedido:
+    for val in getAllDataPedido:
         fecha_entrega = val.get ("fecha_entrega")
         if fecha_entrega:
             date_1= "/".join(val.get("fecha_entrega").split("-")[::-1])   

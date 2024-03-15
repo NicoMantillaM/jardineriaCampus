@@ -1,9 +1,11 @@
 from tabulate import tabulate
 
 import os
-import modules.getClients as cliente
+import modules.getClients as cliente #Repcliente
+import modules.postClients as pstcliente
 import modules.getOficina as oficina
-import modules.getEmpleado as empleado
+import modules.getEmpleado as empleado #Repempleado
+import modules.postEmpleado as pstempleado
 import modules.getPedido as pedido
 import modules.getPago as pago
 import modules.getProducto as Repproducto
@@ -22,11 +24,49 @@ import modules.postProducto as CRUDproducto
 # #                 contador += 1
 # # menu()
 
+def menuCliente():
+    while True:
+        os.system ("clear")
+        print("""
+Bienvenido al menu de clientes
+0.Regresar al menu principal
+1.Reportes de los clientes
+2.Guardar, Actualizar y Eliminar clientes
+""")
+        opcion = int(input("\nSelecione una de las opciones: "))
+        if(opcion == 1):
+            cliente.menu()
+        if(opcion == 2):
+            pstcliente.menu()
+        elif(opcion == 0):
+            break    
+
+
+
+def menuEmpleado():
+    while True:
+        os.system ("clear")
+        print("""
+Bienvenido al menu de Empleados
+0.Regresar al menu principal
+1.Reportes de los empleados
+2.Guardar, Actualizar y Eliminar empleados
+""")
+        opcion = int(input("\nSelecione una de las opciones: "))
+        if(opcion == 1):
+            empleado.menu()
+        if(opcion == 2):
+            pstempleado.menu()
+        elif(opcion == 0):
+            break    
+
+
+
 def menuProducto():
     while True:
-        os.system("clear")
+        os.system ("clear")
         print("""
-Bienvenido al menu de prodcuctos
+Bienvenido al menu de productos
 0.Regresar al menu principal
 1.Reportes de los productos
 2.Guardar, Actualizar y Eliminar productos
@@ -44,7 +84,7 @@ Bienvenido al menu de prodcuctos
 
 if(__name__ == "__main__"):
     while True:
-        os.system("clear")
+        os.system ("clear")
         print("""
 Menu Principal
 0.Salir
@@ -57,7 +97,7 @@ Menu Principal
 """)
         opcion = int(input("\nSeleccione una de las opciones: "))
         if(opcion==1):
-            cliente.menu()
+            menuCliente()
         elif(opcion==2):
             oficina.menu()
         elif(opcion==3):

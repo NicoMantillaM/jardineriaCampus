@@ -1,10 +1,23 @@
-import storage.cliente as cli
-import storage.empleado as em 
+import os
 from tabulate import tabulate
+import requests
+
+def getAllDataClient():
+  #json-server storage/cliente.json -b 5507
+  peticion=requests.get("http://192.168.1.11:5507")
+  data= peticion.json()
+  return data
+
+def getAllDataEmpleado():
+ #json-server storage/empleado.json -b 5508
+  peticion=requests.get("http://192.168.1.11:5508")
+  data= peticion.json()
+  return data 
+
 
 def getAllClientesName():
   clienteName= list()
-  for val in cli.clientes:
+  for val in getAllDataClient():
     codigoName= dict({ 
       "codigo_cliente": val.get("codigo_cliente"),
       "nombre_cliente": val.get("nombre_cliente")
@@ -13,7 +26,7 @@ def getAllClientesName():
   return clienteName
 
 def getOneClientcodigo(codigo):
-  for val in cli.clientes:
+  for val in getAllDataClient():
     if (val.get("codigo_cliente")== codigo):
       return [{ 
       "codigo_cliente": val.get("codigo_cliente"),
@@ -22,7 +35,7 @@ def getOneClientcodigo(codigo):
 
 def getAllClientCreditCiudad(limite_credit, ciudad):
   clienteCredic= list()
-  for val in cli.clientes:
+  for val in getAllDataClient():
    if (val.get("limite_credito") >= limite_credit and val.get("ciudad") == ciudad):
       clienteCredic.append({
         "Codigo": val.get("codigo_cliente"),
@@ -40,7 +53,7 @@ def getAllClientCreditCiudad(limite_credit, ciudad):
 
 def getAllClientPaisRegionCiudad (pais,region=None, ciudad=None):
   clientZone= list()
-  for val in cli.clientes:
+  for val in getAllDataClient():
     if(
      val.get("pais")== pais or
      (val.get("region")== region or val.get("region") == None) and
@@ -51,7 +64,7 @@ def getAllClientPaisRegionCiudad (pais,region=None, ciudad=None):
 
 def getAllClientCiudad (ciudad):
   clienteCiud= list()
-  for val in cli.clientes:
+  for val in getAllDataClient():
     if(
      (val.get("ciudad")== ciudad or val.get("ciudad") == None)
     ):
@@ -60,7 +73,7 @@ def getAllClientCiudad (ciudad):
 
 def getAllClientDireccion1():
   clientDireccion1= list()
-  for val in cli.clientes:
+  for val in getAllDataClient():
     direccion1= dict({ 
     "codigo_cliente": val.get("codigo_cliente"),
     "nombre_cliente": val.get("nombre_cliente"),
@@ -70,7 +83,7 @@ def getAllClientDireccion1():
   return clientDireccion1
 
 def getOneClienttelefono(telefono):
-  for val in cli.clientes:
+  for val in getAllDataClient():
     if (val.get("telefono")== telefono):
       return [{
       "codigo_cliente": val.get("codigo_cliente"),
@@ -80,14 +93,14 @@ def getOneClienttelefono(telefono):
 
 def getAllClientCreditEntre():
   clientCredit= list()
-  for val in cli.clientes:
+  for val in getAllDataClient():
    if(val.get("limite_credito")>= 5000 and val.get("limite_credito") <= 10000):
       clientCredit.append(val)
   return  clientCredit
 
 def getAllClientFax():
   clientFax= list()
-  for val in cli.clientes:
+  for val in getAllDataClient():
     fax= dict({
       "nombre_cliente": val.get("nombre_cliente"),
       "fax":  val.get("fax")
@@ -98,7 +111,7 @@ def getAllClientFax():
 #filtro 6
 def getAllClientsPais():
   paiscliente= []
-  for val in cli.clientes:
+  for val in getAllDataClient():
     if (val.get("pais")==("Spain")):
       paiscliente.append(
         {
@@ -110,7 +123,7 @@ def getAllClientsPais():
 #filtro 16
 def getAllCiudadCodigo():
   codigoCiudad= []
-  for val in cli.clientes:
+  for val in getAllDataClient():
     if val.get("ciudad")== "Madrid":
       if val.get("codigo_empleado_rep_ventas")== 11 or val.get("codigo_empleado_rep_ventas")== 30:
         codigoCiudad.append({
@@ -123,8 +136,8 @@ def getAllCiudadCodigo():
 
 def getAllClientsRepre():
   clientesRepre= []
-  for val in cli.clientes:
-    for val2 in em.empleado:
+  for val in getAllDataClient():
+    for val2 in getAllDataEmpleado():
       if val.get("codigo_empleado_rep_ventas")== val2.get("codigo_empleado") and val2.get ("puesto")== ("Representante Ventas"):
        clientesRepre.append(
          {
@@ -139,6 +152,7 @@ def getAllClientsRepre():
 
 def menu():
   while True:
+    os.system ("clear")
     print(""" 
         
 Reportes de los clientes
@@ -178,6 +192,7 @@ Reportes de los clientes
         print(tabulate(getAllCiudadCodigo(),tablefmt="grid"))
       elif(opcion == 7):
         print(tabulate(getAllClientsRepre(),tablefmt="grid"))  
+        input("Precione una tecla para continuar.....")
       elif(opcion == 0):
         break
     except KeyboardInterrupt:

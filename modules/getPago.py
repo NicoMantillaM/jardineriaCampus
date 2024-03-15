@@ -1,6 +1,6 @@
-import storage.pago as pa 
-import storage.cliente as cli
-import storage.empleado as em 
+#import storage.pago as pa 
+#import storage.cliente as cli
+#import storage.empleado as em 
 from tabulate import tabulate
 
 #filtro 8

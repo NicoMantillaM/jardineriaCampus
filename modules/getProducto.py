@@ -29,7 +29,7 @@ def getAllStocksPriceGama():
 
 def menu():
     while True:
-        os.system("clear")
+        os.system ("clear")
         print("""
 REPORTES DE LOS PRODUCTOS
 0.Regresar al menu principal

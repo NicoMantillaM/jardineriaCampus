@@ -1,5 +1,5 @@
 from tabulate import tabulate
-
+import re
 import os
 import modules.getClients as cliente #Repcliente
 import modules.postClients as pstcliente
@@ -95,19 +95,24 @@ Menu Principal
 5.pago
 6.producto
 """)
+        
         opcion = int(input("\nSeleccione una de las opciones: "))
-        if(opcion==1):
-            menuCliente()
-        elif(opcion==2):
-            oficina.menu()
-        elif(opcion==3):
-            empleado.menu()
-        elif(opcion==4):
-            pedido.menu()
-        elif(opcion==5):
-            pago.menu()
-        elif(opcion==6):
-            menuProducto()
-        elif(opcion==0):
-            break
+        if(re.match(r'[0-9]+$', opcion)is not None):
+            opcion = int(opcion)
+            if(opcion>=0 and opcion<=5):
+                if(opcion==1):
+                    menuCliente()
+                elif(opcion==2):
+                    oficina.menu()
+                elif(opcion==3):
+                    empleado.menu()
+                elif(opcion==4):
+                    pedido.menu()
+                elif(opcion==5):
+                    pago.menu()
+                elif(opcion==6):
+                    menuProducto()
+                elif(opcion==0):
+                    break
+       
 

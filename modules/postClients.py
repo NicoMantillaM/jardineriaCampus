@@ -22,7 +22,7 @@ def postClients():
         "limite_credito": int(input("Ingrese el limite del credito: "))
     }
 
-    peticion = requests.post("http://192.168.1.11:5507", data=json.dumps(cliente))
+    peticion = requests.post("http://172.16.100.115:5507", data=json.dumps(cliente))
     res = peticion.json()
     res["Mensaje"]= "Producto Guardado"
     return [res]

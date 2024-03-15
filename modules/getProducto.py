@@ -4,7 +4,7 @@ import requests
 
 def getAllData():
     #json-server storage/producto.json -b 5505
-    peticion=requests.get("http://172.16.103.38:5505")
+    peticion=requests.get("http://172.16.100.115:5505")
     data= peticion.json()
     return data
     

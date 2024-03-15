@@ -19,7 +19,7 @@ def postProducto():
     }
 
 
-    peticion = requests.post("http://172.16.103.38:5505", data=json.dumps(producto))
+    peticion = requests.post("http://172.16.100.115:5505", data=json.dumps(producto))
     res = peticion.json()
     res["Mensaje"]= "Producto Guardado"
     return [res]
@@ -43,3 +43,4 @@ ADMINISTRAR DATOS DE PRODUCTOS
                 break
         except KeyboardInterrupt:
             break
+

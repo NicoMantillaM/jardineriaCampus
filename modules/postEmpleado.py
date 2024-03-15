@@ -17,7 +17,7 @@ def postEmpleado():
         "puesto": input("Ingrese el puesto: ")
     }
 
-    peticion = requests.post("http://192.168.1.11:5508", data=json.dumps(empleado))
+    peticion = requests.post("http://172.16.100.115:5508", data=json.dumps(empleado))
     res = peticion.json()
     res["Mensaje"]= "Producto Guardado"
     return [res]

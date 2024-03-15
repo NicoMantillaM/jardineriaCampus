@@ -98,14 +98,19 @@ Reportes de los pagos
             opcion = int(input("\nSeleccione una de las opciones:"))
             if(opcion == 1):
                 print(tabulate(getAllCodigosPagosAño(),tablefmt="grid"))
+                input("Presione una tecla para continuar..........")
             elif(opcion == 2):
                     print(tabulate(getAllAñoPaypal(),tablefmt="grid"))
+                    input("Presione una tecla para continuar..........")
             elif(opcion == 3):
                     print(tabulate(getAllAñoFormasPa(),tablefmt="grid"))
+                    input("Presione una tecla para continuar..........")
             elif(opcion == 4):
                     print(tabulate(getAllClientsPagos(),tablefmt="grid"))
+                    input("Presione una tecla para continuar..........")
             elif(opcion == 5):
                     print(tabulate(getAllClientsNoPagos(),tablefmt="grid"))
+                    input("Presione una tecla para continuar..........")
             elif(opcion == 0):
                     break
         except KeyboardInterrupt:

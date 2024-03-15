@@ -12,7 +12,7 @@ def getAllDataPedido():
 #filtro 7
 def getAllEstadoPedido():
     estadoPedidos = []
-    for val in getAllDataPedido:
+    for val in getAllDataPedido():
         estadoPedidos.append({
                     "codigo_pedido": val.get("codigo_pedido"),
                     "estado": val.get('estado')
@@ -29,7 +29,7 @@ from datetime import datetime
 
 def getAllPedidosEntregadosAtrasadosDeTiempo():
     pedidosEntregado= []
-    for val in getAllDataPedido:
+    for val in getAllDataPedido():
         if val.get("estado") == "Entregado" and val.get("fecha_entrega") is None:
             val["fecha_entrega"] = val.get("fecha_esperada")    
         if val.get("estado") == "Entregado":
@@ -52,7 +52,7 @@ def getAllPedidosEntregadosAtrasadosDeTiempo():
     
 def getAllPedidosEntregadosDosDiasAnt():
     pedidosEntregadoAntes= []
-    for val in getAllDataPedido:
+    for val in getAllDataPedido():
         if val.get("estado") == "Entregado" and val.get("fecha_entrega") is None:
             val["fecha_entrega"] = val.get("fecha_esperada")    
         if val.get("estado") == "Entregado":
@@ -74,7 +74,7 @@ def getAllPedidosEntregadosDosDiasAnt():
 
 def getAllPedidosRechazados2009():
     pedidosRechazados= []
-    for val in getAllDataPedido:
+    for val in getAllDataPedido():
         if "2009" in val.get("fecha_pedido") and val.get("estado")== "Rechazado":        
             pedidosRechazados.append(val)                                                                   
     return pedidosRechazados
@@ -84,7 +84,7 @@ def getAllPedidosRechazados2009():
 
 def getAllEnEnero():
     pedidosEnero= []
-    for val in getAllDataPedido:
+    for val in getAllDataPedido():
         fecha_entrega = val.get ("fecha_entrega")
         if fecha_entrega:
             date_1= "/".join(val.get("fecha_entrega").split("-")[::-1])   
@@ -114,14 +114,19 @@ Reportes de los pedidos
             opcion = int(input("\nSeleccione una de las opciones:"))
             if(opcion == 1):
                 print(tabulate(getAllEstadoPedido(),tablefmt="grid"))
+                input("Presione una tecla para continuar..........")
             elif(opcion == 2):
                 print(tabulate(getAllPedidosEntregadosAtrasadosDeTiempo(),tablefmt="grid"))
+                input("Presione una tecla para continuar..........")
             elif(opcion == 3):
                 print(tabulate(getAllPedidosEntregadosDosDiasAnt(),tablefmt="grid"))
+                input("Presione una tecla para continuar..........")
             elif(opcion == 4):
                 print(tabulate(getAllPedidosRechazados2009(),tablefmt="grid"))
+                input("Presione una tecla para continuar..........")
             elif(opcion == 5):
                 print(tabulate(getAllEnEnero(),tablefmt="grid"))
+                input("Presione una tecla para continuar..........")
             elif(opcion == 0):
                 break
         except KeyboardInterrupt:

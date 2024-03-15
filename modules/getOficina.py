@@ -4,15 +4,14 @@ from tabulate import tabulate
 
 def getAllDataOficina():
   #json-server storage/oficina.json -b 5509
-  peticion=requests.get("http://172.16.100.115:5509")
+  peticion=requests.get("http://172.16.103.38:5509")
   data= peticion.json()
   return data
     
 
-
 def getAllCodigoCiudad():
-    codigoCiudad= []
-    for val in getAllDataOficina:
+    codigoCiudad=[]
+    for val in getAllDataOficina():
         codigoCiudad.append({
            "codigo":val.get("codigo_oficina"),
            "ciudad":val.get ("ciudad")
@@ -24,7 +23,7 @@ def getAllCodigoCiudad():
 
 def getAllCiudadTelefono(pais):
     ciudadTelefono= []
-    for val in getAllDataOficina:
+    for val in getAllDataOficina():
         if (val.get("pais")==pais):
            ciudadTelefono.append({
            "ciudad":val.get("ciudad"),
@@ -35,7 +34,7 @@ def getAllCiudadTelefono(pais):
     return ciudadTelefono
 
 def getOneCodigoPostal(codigoPost):
-    for val in getAllDataOficina:
+    for val in getAllDataOficina():
         if (val.get("codigo_postal")==codigoPost):
             return [{
             "codigo_oficina": val.get("codigo_oficina"),
@@ -57,12 +56,15 @@ Reportes de las oficinas
             opcion = int(input("\nSeleccione una de las opciones:"))
             if(opcion == 1):
                 print(tabulate(getAllCodigoCiudad(),tablefmt="grid"))
+                input("Presione una tecla para continuar..........")
             elif(opcion == 2):
                 pais= str(input("\nIngrese el pais: " ))
                 print(tabulate(getAllCiudadTelefono(pais),tablefmt="grid"))
+                input("Presione una tecla para continuar..........")
             elif(opcion == 3):
                 codigoPost= str(input("\nIngrese el codigo postal: " ))
                 print(tabulate(getOneCodigoPostal(codigoPost),tablefmt="grid"))
+                input("Presione una tecla para continuar..........")
             elif(opcion == 0):
                     break
         except KeyboardInterrupt:

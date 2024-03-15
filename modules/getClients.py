@@ -4,13 +4,13 @@ import requests
 
 def getAllDataClient():
   #json-server storage/cliente.json -b 5507
-  peticion=requests.get("http://172.16.100.115:5507")
+  peticion=requests.get("http://172.16.103.38:5507")
   data= peticion.json()
   return data
 
 def getAllDataEmpleado():
  #json-server storage/empleado.json -b 5508
-  peticion=requests.get("http://172.16.100.115:5508")
+  peticion=requests.get("http://172.16.103.38:5508")
   data= peticion.json()
   return data 
 
@@ -170,10 +170,12 @@ Reportes de los clientes
       opcion = int(input("\nSeleccione una de las opciones:"))
       if(opcion == 1):
         print(tabulate(getAllClientesName(),tablefmt="grid"))
+        input("Presione una tecla para continuar..........")
       elif(opcion == 2):
           #try: 
             codigo= int(input("Ingrese el codigo del cliente: "))
             print(tabulate(getOneClientcodigo(codigo),tablefmt="grid"))
+            input("Presione una tecla para continuar..........")
           #except KeyboardInterrupt:
             #return menu()
       elif(opcion == 3):
@@ -181,18 +183,22 @@ Reportes de los clientes
           clienteCredic= float(input("\nIngrese el limite de credito: "))
           ciudad= str(input("\n Ingrese la ciudad"))
           print(tabulate(getAllClientCreditCiudad(clienteCredic,ciudad),tablefmt="grid"))
+          input("Presione una tecla para continuar..........")
         #except KeyboardInterrupt:
           #return menu()
       elif(opcion == 4):
         print(tabulate(getAllClientCreditEntre(),tablefmt="grid"))
+        input("Presione una tecla para continuar..........")
       elif(opcion == 5):
         telefono= str(input("\nIngrese el telefono del cliente: "))
         print(tabulate(getOneClienttelefono(telefono),tablefmt="grid"))
+        input("Presione una tecla para continuar..........")
       elif(opcion == 6):
         print(tabulate(getAllCiudadCodigo(),tablefmt="grid"))
+        input("Presione una tecla para continuar..........")
       elif(opcion == 7):
         print(tabulate(getAllClientsRepre(),tablefmt="grid"))  
-        input("Precione una tecla para continuar.....")
+        input("Presione una tecla para continuar.....")
       elif(opcion == 0):
         break
     except KeyboardInterrupt:

@@ -17,7 +17,7 @@ def postEmpleado():
         "puesto": input("Ingrese el puesto: ")
     }
 
-    peticion = requests.post("http://172.16.100.115:5508", data=json.dumps(empleado))
+    peticion = requests.post("http://172.16.103.38:5508", data=json.dumps(empleado))
     res = peticion.json()
     res["Mensaje"]= "Producto Guardado"
     return [res]
@@ -28,8 +28,7 @@ def menu():
         print ("""
 ADMINISTRAR DATOS DE EMPLEADOS
 0.Regresar al menu principal
-1. 
-2.Guardar un nuevo empleado
+1.Guardar un nuevo empleado
     -PRESIONA CTRL + C PARA REGRESAR AL MENU PRINCIPAL
 """)
         

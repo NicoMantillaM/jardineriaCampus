@@ -4,6 +4,7 @@ import os
 import modules.getClients as cliente #Repcliente
 import modules.postClients as pstcliente
 import modules.getOficina as oficina
+import modules.postOficina as pstoficina
 import modules.getEmpleado as empleado #Repempleado
 import modules.postEmpleado as pstempleado
 import modules.getPedido as pedido
@@ -61,6 +62,24 @@ Bienvenido al menu de Empleados
             break    
 
 
+def menuOficina():
+    while True:
+        os.system ("clear")
+        print("""
+Bienvenido al menu de oficina
+0.Regresar al menu principal
+1.Reportes de la oficina
+2.Guardar, Actualizar y Eliminar empleados
+""")
+        opcion = int(input("\nSelecione una de las opciones: "))
+        if(opcion == 1):
+            oficina.menu()
+        if(opcion == 2):
+            pstoficina.menu()
+        elif(opcion == 0):
+            break    
+
+
 
 def menuProducto():
     while True:
@@ -84,7 +103,7 @@ Bienvenido al menu de productos
 
 if(__name__ == "__main__"):
     while True:
-        os.system ("clear")
+        os.system("clear")
         print("""
 Menu Principal
 0.Salir
@@ -97,22 +116,22 @@ Menu Principal
 """)
         
         opcion = int(input("\nSeleccione una de las opciones: "))
-        if(re.match(r'[0-9]+$', opcion)is not None):
-            opcion = int(opcion)
-            if(opcion>=0 and opcion<=5):
-                if(opcion==1):
-                    menuCliente()
-                elif(opcion==2):
-                    oficina.menu()
-                elif(opcion==3):
-                    empleado.menu()
-                elif(opcion==4):
-                    pedido.menu()
-                elif(opcion==5):
-                    pago.menu()
-                elif(opcion==6):
-                    menuProducto()
-                elif(opcion==0):
-                    break
+                        # if(re.match(r'[0-9]+$', opcion)is not None):
+                        #     opcion = int(opcion)
+                        #     if(opcion>=0 and opcion<=5):
+        if(opcion==1):
+            menuCliente()
+        elif(opcion==2):
+            menuOficina()
+        elif(opcion==3):
+            empleado.menu()
+        elif(opcion==4):
+            pedido.menu()
+        elif(opcion==5):
+            pago.menu()
+        elif(opcion==6):
+            menuProducto()
+        elif(opcion==0):
+            break
        
 

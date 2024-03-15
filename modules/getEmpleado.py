@@ -4,14 +4,14 @@ import requests
 
 def getAllDataEmpleado():
   #json-server storage/empleado.json -b 5508
-  peticion=requests.get("http://172.16.100.115:5508")
+  peticion=requests.get("http://172.16.103.38:5508")
   data= peticion.json()
   return data
 
 
 def getAllNombreApellidoEmailJefe(codigo):
     nombreApellidoEmail= []
-    for val in getAllDataEmpleado:
+    for val in getAllDataEmpleado():
        if (val.get("codigo_jefe") == codigo):
            nombreApellidoEmail.append(
                {
@@ -28,7 +28,7 @@ def getAllNombreApellidoEmailJefe(codigo):
 def getAllNomApeJefeEmpresa():
     nombreApellidoEmailJefeEmpresa = []
     
-    for val in getAllDataEmpleado:
+    for val in getAllDataEmpleado():
         if (val.get ("codigo_jefe") == None ): 
             nombreApellidoEmailJefeEmpresa.append({
 
@@ -45,7 +45,7 @@ def getAllNomApeJefeEmpresa():
 #filtro 5
 def getAllNomApePuestoVec():
     nombreApellidoPuesto=[]
-    for val in getAllDataEmpleado:
+    for val in getAllDataEmpleado():
          if (val.get("puesto") != ("Representante Ventas")):
               nombreApellidoPuesto.append(
                {
@@ -74,11 +74,13 @@ Reportes de los empleados
             if(opcion == 1):
                 codigo=int(input("\nIngrese el codigo de jefe: " ))
                 print(tabulate(getAllNombreApellidoEmailJefe(codigo),tablefmt="grid"))
+                input("Presione una tecla para continuar..........")
             elif(opcion == 2):
                 print(tabulate(getAllNomApeJefeEmpresa(),tablefmt="grid"))
+                input("Presione una tecla para continuar..........")
             elif(opcion == 3):
                 print(tabulate(getAllNomApePuestoVec(),tablefmt="grid"))
-                input("Precione una tecla para continuar.....")
+                input("Presione una tecla para continuar.....")
             elif(opcion == 0):
                 break
         except KeyboardInterrupt:

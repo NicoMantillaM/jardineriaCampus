@@ -8,7 +8,6 @@ def getAllDataEmpleado():
   data= peticion.json()
   return data
 
-
 def getAllNombreApellidoEmailJefe(codigo):
     nombreApellidoEmail= []
     for val in getAllDataEmpleado():

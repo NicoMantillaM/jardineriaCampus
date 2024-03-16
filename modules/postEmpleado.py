@@ -6,7 +6,7 @@ import requests
 def postEmpleado():
     #json-server storage/empleado.json -b 5508
     empleado = {
-        "codigo_empleado": int(input("Ingrese el codigo del cliente : ")),
+        "codigo_empleado": int(input("Ingrese el codigo del empleado : ")),
         "nombre": input("Ingrese el nombre del empleado: "),
         "apellido1": input("Ingrese el apellido 1 del empleado: "),
         "apellido2": input("Ingrese el apellido 2 del empleado: "),

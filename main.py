@@ -8,7 +8,9 @@ import modules.postOficina as pstoficina
 import modules.getEmpleado as empleado #Repempleado
 import modules.postEmpleado as pstempleado
 import modules.getPedido as pedido
+import modules.postPedido as pstpedido
 import modules.getPago as pago
+import modules.postPago as pstpago
 import modules.getProducto as Repproducto
 import modules.postProducto as CRUDproducto
 
@@ -29,7 +31,7 @@ def menuCliente():
     while True:
         os.system ("clear")
         print("""
-Bienvenido al menu de clientes
+BIENVENIDO AL MENU DE CLIENTES              
 0.Regresar al menu principal
 1.Reportes de los clientes
 2.Guardar, Actualizar y Eliminar clientes
@@ -48,7 +50,7 @@ def menuEmpleado():
     while True:
         os.system ("clear")
         print("""
-Bienvenido al menu de Empleados
+BIENVENIDO AL MENU DE EMPLEADOS              
 0.Regresar al menu principal
 1.Reportes de los empleados
 2.Guardar, Actualizar y Eliminar empleados
@@ -66,10 +68,10 @@ def menuOficina():
     while True:
         os.system ("clear")
         print("""
-Bienvenido al menu de oficina
+BIENVENIDO AL MENU DE OFICINA              
 0.Regresar al menu principal
 1.Reportes de la oficina
-2.Guardar, Actualizar y Eliminar empleados
+2.Guardar, Actualizar y Eliminar oficinas
 """)
         opcion = int(input("\nSelecione una de las opciones: "))
         if(opcion == 1):
@@ -79,13 +81,47 @@ Bienvenido al menu de oficina
         elif(opcion == 0):
             break    
 
+def menuPago():
+    while True:
+        os.system ("clear")
+        print("""
+BIENVENIDO AL MENU DE PAGOS              
+0.Regresar al menu principal
+1.Reportes de pagos
+2.Guardar, Actualizar y Eliminar pagos
+""")
+        opcion = int(input("\nSelecione una de las opciones: "))
+        if(opcion == 1):
+            pago.menu()
+        if(opcion == 2):
+            pstpago.menu()
+        elif(opcion == 0):
+            break       
+
+def menuPedido():
+    while True:
+        os.system ("clear")
+        print("""
+BIENVENIDO AL MENU DE PEDIDOS              
+0.Regresar al menu principal
+1.Reportes de pedidos
+2.Guardar, Actualizar y Eliminar pedidos
+""")
+        opcion = int(input("\nSelecione una de las opciones: "))
+        if(opcion == 1):
+            pedido.menu()
+        if(opcion == 2):
+            pstpedido.menu()
+        elif(opcion == 0):
+            break       
+
 
 
 def menuProducto():
     while True:
         os.system ("clear")
         print("""
-Bienvenido al menu de productos
+BIENVENIDO AL MENU DE PRODUCTOS
 0.Regresar al menu principal
 1.Reportes de los productos
 2.Guardar, Actualizar y Eliminar productos
@@ -124,11 +160,11 @@ Menu Principal
         elif(opcion==2):
             menuOficina()
         elif(opcion==3):
-            empleado.menu()
+            menuEmpleado()
         elif(opcion==4):
-            pedido.menu()
+            menuPedido()
         elif(opcion==5):
-            pago.menu()
+            menuPago()
         elif(opcion==6):
             menuProducto()
         elif(opcion==0):

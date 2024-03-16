@@ -1,13 +1,31 @@
-#import storage.pago as pa 
-#import storage.cliente as cli
-#import storage.empleado as em 
+import os
+import requests
 from tabulate import tabulate
+
+def getAllDataPagos():
+    #json-server storage/pago.json -b 55011
+    peticion=requests.get("http://192.168.1.11:55011")
+    data= peticion.json()
+    return data 
+
+def getAllDataClient():
+  #json-server storage/cliente.json -b 5507
+  peticion=requests.get("http://192.168.1.11:5507")
+  data= peticion.json()
+  return data
+
+def getAllDataEmpleado():
+  #json-server storage/empleado.json -b 5508
+  peticion=requests.get("http://192.168.1.11:5508")
+  data= peticion.json()
+  return data
+
 
 #filtro 8
 def getAllCodigosPagosAño():
     CodigosAño = []
     codigos_vistos = set()
-    for val in pa.pago:
+    for val in getAllDataPagos():
         if "2008" in val.get("fecha_pago"):
             codigo_cliente = val.get("codigo_cliente")
             if codigo_cliente not in codigos_vistos:
@@ -24,7 +42,7 @@ def getAllCodigosPagosAño():
 #pagos- filtro 13
 def getAllAñoPaypal():
     pagosPaypal= []
-    for val in pa.pago:
+    for val in getAllDataPagos():
         if ("2008") in val.get("fecha_pago") and val.get("forma_pago") == ("PayPal"): 
             pagosPaypal.append({
                 "codigo_cliente": val.get ("codigo_cliente"),
@@ -39,7 +57,7 @@ def getAllAñoPaypal():
 def getAllAñoFormasPa():
     formaspago= []
     formasVistas= set()
-    for val in pa.pago:
+    for val in getAllDataPagos():
         forma_pago= ("forma_pago")
         if forma_pago not in ("formasVistas"):
             formaspago.append({ 
@@ -53,9 +71,9 @@ def getAllAñoFormasPa():
 
 def getAllClientsPagos():
     clientespago= []
-    for val in cli.clientes:
-        for val2 in pa.pago: 
-            for val3 in em.empleado:
+    for val in getAllDataClient():
+        for val2 in getAllDataPagos(): 
+            for val3 in getAllDataEmpleado():
                 if val2.get("codigo_cliente")== val.get("codigo_cliente") and val.get("codigo_empleado_rep_ventas")== val3.get("codigo_empleado"):
                         clientespago.append(
                             {
@@ -68,9 +86,9 @@ def getAllClientsPagos():
 
 def getAllClientsNoPagos():
     clientesNopago= []
-    for val in cli.clientes:
-        for val2 in pa.pago: 
-            for val3 in em.empleado:
+    for val in getAllDataClient():
+        for val2 in getAllDataPagos(): 
+            for val3 in getAllDataEmpleado():
                 if not val2.get("codigo_cliente")== val.get("codigo_cliente") and val.get("codigo_empleado_rep_ventas")== val3.get("codigo_empleado"):
                         clientesNopago.append(
                             {
@@ -84,6 +102,7 @@ def getAllClientsNoPagos():
 
 def menu():
     while True:
+        os.system ("clear")
         print("""
 Reportes de los pagos
 0.Regresar a menu principal

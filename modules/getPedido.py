@@ -5,7 +5,7 @@ from tabulate import tabulate
 
 def getAllDataPedido():
   #json-server storage/pedido.json -b 55010
-  peticion=requests.get("http://172.16.100.115:55010")
+  peticion=requests.get("http://192.168.1.11:55010")
   data= peticion.json()
   return data
 
@@ -20,7 +20,6 @@ def getAllEstadoPedido():
     return estadoPedidos
 
 #filtro 9
-from datetime import datetime
 
 # delvuelve un listado con el codgio d epedido,,
 #codigo de cliente fecha espeada y

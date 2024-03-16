@@ -4,7 +4,7 @@ from tabulate import tabulate
 
 def getAllDataOficina():
   #json-server storage/oficina.json -b 5509
-  peticion=requests.get("http://172.16.103.38:5509")
+  peticion=requests.get("http://192.168.1.11:5509")
   data= peticion.json()
   return data
     
@@ -44,6 +44,7 @@ def getOneCodigoPostal(codigoPost):
 
 def menu():
     while True:
+        os.system ("clear")
         print(""" 
 Reportes de las oficinas
 0.Regresar a menu principal
@@ -55,15 +56,15 @@ Reportes de las oficinas
         try:
             opcion = int(input("\nSeleccione una de las opciones:"))
             if(opcion == 1):
-                print(tabulate(getAllCodigoCiudad(),tablefmt="grid"))
+                print(tabulate(getAllCodigoCiudad(), tablefmt="github"))
                 input("Presione una tecla para continuar..........")
             elif(opcion == 2):
                 pais= str(input("\nIngrese el pais: " ))
-                print(tabulate(getAllCiudadTelefono(pais),tablefmt="grid"))
+                print(tabulate(getAllCiudadTelefono(pais), tablefmt="github"))
                 input("Presione una tecla para continuar..........")
             elif(opcion == 3):
                 codigoPost= str(input("\nIngrese el codigo postal: " ))
-                print(tabulate(getOneCodigoPostal(codigoPost),tablefmt="grid"))
+                print(tabulate(getOneCodigoPostal(codigoPost), tablefmt="github"))
                 input("Presione una tecla para continuar..........")
             elif(opcion == 0):
                     break

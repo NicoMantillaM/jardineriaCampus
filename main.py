@@ -151,23 +151,23 @@ Menu Principal
 6.producto
 """)
         
-        opcion = int(input("\nSeleccione una de las opciones: "))
-                        # if(re.match(r'[0-9]+$', opcion)is not None):
-                        #     opcion = int(opcion)
-                        #     if(opcion>=0 and opcion<=5):
-        if(opcion==1):
-            menuCliente()
-        elif(opcion==2):
-            menuOficina()
-        elif(opcion==3):
-            menuEmpleado()
-        elif(opcion==4):
-            menuPedido()
-        elif(opcion==5):
-            menuPago()
-        elif(opcion==6):
-            menuProducto()
-        elif(opcion==0):
-            break
+        opcion = input("\nSeleccione una de las opciones: ")
+        if(re.match(r'[0-9]+$', opcion)is not None):
+            opcion = int(opcion)
+            if(opcion>=0 and opcion<=6):
+                if(opcion==1):
+                    menuCliente()
+                elif(opcion==2):
+                    menuOficina()
+                elif(opcion==3):
+                    menuEmpleado()
+                elif(opcion==4):
+                    menuPedido()
+                elif(opcion==5):
+                    menuPago()
+                elif(opcion==6):
+                    menuProducto()
+                elif(opcion==0):
+                    break
        
 

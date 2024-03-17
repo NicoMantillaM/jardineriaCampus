@@ -4,8 +4,8 @@ import requests
 
 def getAllData():
     #json-server storage/producto.json -b 5505
-    peticion=requests.get("http://172.16.100.115:5505")
-    data= peticion.json()
+    peticion = requests.get("http://172.16.100.115:5505")
+    data = peticion.json()
     return data
     
 #Devuelve un listado con todas los productos q pertenecen a la gama ornamentales

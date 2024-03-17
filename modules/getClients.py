@@ -4,13 +4,13 @@ import requests
 
 def getAllDataClient():
   #json-server storage/cliente.json -b 5507
-  peticion=requests.get("http://172.16.103.38:5507")
+  peticion=requests.get("http://192.168.1.11:5507")
   data= peticion.json()
   return data
 
 def getAllDataEmpleado():
  #json-server storage/empleado.json -b 5508
-  peticion=requests.get("http://172.16.103.38:5508")
+  peticion=requests.get("http://192.168.1.11:5508")
   data= peticion.json()
   return data 
 

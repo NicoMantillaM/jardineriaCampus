@@ -20,6 +20,15 @@ def getAllDataEmpleado():
   data= peticion.json()
   return data
 
+def getAllIdTrans(id):
+    for val in getAllDataPagos():
+        if val.get("id_transaccion") == id:
+            return [val]
+
+def getAllFormasPago(formaPa):
+    for val in getAllDataPagos():
+        if (val.get("forma_pago")== formaPa):
+            return val
 
 #filtro 8
 def getAllCodigosPagosAño():

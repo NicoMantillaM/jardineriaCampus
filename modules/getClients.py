@@ -1,10 +1,11 @@
 import os
 from tabulate import tabulate
 import requests
+import json
 
 def getAllDataClient():
   #json-server storage/cliente.json -b 5507
-  peticion=requests.get("http://192.168.1.11:5507")
+  peticion=requests.get("http://172.16.103.39:5507")
   data= peticion.json()
   return data
 
@@ -13,6 +14,11 @@ def getAllDataEmpleado():
   peticion=requests.get("http://192.168.1.11:5508")
   data= peticion.json()
   return data 
+
+def getClienteCodigo(id):
+   peticion = requests.get(f"http://172.16.103.39:5507/clientes/{id}") 
+   data = peticion.json()
+   return [data]
 
 
 def getAllClientesName():

@@ -13,19 +13,19 @@ import modules.getPago as pago
 import modules.postPago as pstpago
 import modules.getProducto as Repproducto
 import modules.postProducto as CRUDproducto
+import json
 
-
-# import sys
-# #def menu():
-# #    contador = 1
-# #     print("Menu Principal")1
-# #     for nombre, objeto in sys.modules.items():
-# #         if nombre.startswith("modules"):
-# #             modulo = getattr(objeto, "__name__", None)
-# #             if(modulo != "modules"):
-# #                 print(f"""{contador}. {modulo.split("get")[-1]} """)
-# #                 contador += 1
-# # menu()
+# # import sys
+# # #def menu():
+# # #    contador = 1
+# # #     print("Menu Principal")1
+# # #     for nombre, objeto in sys.modules.items():
+# # #         if nombre.startswith("modules"):
+# # #             modulo = getattr(objeto, "__name__", None)
+# # #             if(modulo != "modules"):
+# # #                 print(f"""{contador}. {modulo.split("get")[-1]} """)
+# # #                 contador += 1
+# # # menu()
 
 def menuCliente():
     while True:
@@ -73,7 +73,7 @@ BIENVENIDO AL MENU DE OFICINA
 1.Reportes de la oficina
 2.Guardar, Actualizar y Eliminar oficinas
 """)
-        opcion = int(input("\nSelecione una de las opciones: "))
+        opcion = input("\nSelecione una de las opciones: ")
         if(opcion == 1):
             oficina.menu()
         if(opcion == 2):
@@ -171,3 +171,13 @@ Menu Principal
                     break
        
 
+
+                    # with open("storage/producto.json", "r") as f:
+#     fichero = f.read()
+#     data = json.loads(fichero)
+#     for i, val in enumerate(data):
+#         data[i]["id"] = (i+1)
+#     data = json.dumps(data, indent=4).encode("utf-8")
+# with open("storage/producto.json", "wb+") as f1:
+#     f1.write(data)
+#     f1.close()

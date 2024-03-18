@@ -2,8 +2,9 @@ import os
 from tabulate import tabulate
 import json
 import requests
-import modules.getClients as gCli
+import modules.getClients as Cli
 import re
+
 
     #json-server storage/cliente.json -b 5507
     #     "codigo_cliente": int(input("Ingrese el codigo del cliente : ")),
@@ -179,6 +180,27 @@ def postClients():
     res["Mensaje"]= "Producto Guardado"
     return [res]
 
+def deleteCliente(id):
+    data = Cli.getClienteCodigo(id)
+    if(len(data)):
+
+        peticion = requests.delete(f"http://172.16.103.39:5507/clientes/{id}")
+        if(peticion.status_code == 204):
+            data.append({"message": "producto eliminado correctamente"})
+            return {
+                "body": data,
+                "status": peticion.status_code,
+            }
+    else:
+        return {
+                "body":[{
+                    "message": "producto no encontrado",
+                    "id": id
+            }],
+            "status": 400,
+        }
+    
+def     
 
 def menu():
     while True:
@@ -187,14 +209,21 @@ def menu():
 ADMINISTRAR DATOS DE CLIENTES
 0.Regresar al menu principal
 1.Guardar un cliente nuevo
+2.Eliminar
     -PRESIONA CTRL + C PARA REGRESAR AL MENU PRINCIPAL
 """)
         
         try:
-            opcion = int(input("\nSelecione una de las opciones: "))
+            opcion = input("\nSelecione una de las opciones: ")
+            opcion = int(opcion)
             if(opcion == 1):
                 print(tabulate(postClients(), tablefmt="grid"))
                 input("Precione una tecla para continuar.....")
+            if(opcion == 2):
+                idClient = input("Ingrese el id del cliente q desea eliminar: ")
+                print(tabulate(deleteCliente(idClient)["body"], tablefmt="grid"))
+                input("Presione una tecla para continuar......")
+
             elif(opcion == 0):
                 break
         except KeyboardInterrupt:

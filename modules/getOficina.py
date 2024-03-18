@@ -7,7 +7,11 @@ def getAllDataOficina():
   peticion=requests.get("http://192.168.1.11:5509")
   data= peticion.json()
   return data
-    
+
+def getAllOficinalefono(telefono):
+    for val in getAllDataOficina():
+        if (val.get("telefono") == telefono):
+            return val
 
 def getAllCodigoCiudad():
     codigoCiudad=[]

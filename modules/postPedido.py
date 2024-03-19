@@ -4,6 +4,7 @@ import json
 from tabulate import tabulate
 import re
 import modules.getClients as gCli
+import modules.getPedido as gPed
 
 #json-server storage/pedido.json -b 55010
 # {
@@ -22,66 +23,75 @@ def postPedido():
     while True:
         try:
             if not pedido.get("codigo_pedido"):
-                codigo = input("Ingrese el codigo del cliente (Eje:40): ")
+                codigo = input("Ingrese el codigo del pedido (Eje:7): ")
                 if re.match(r'^[0-9]+$', codigo) is not None:
                     codigo = int(codigo)
-                    data= gCli.getOneClientcodigo(codigo)
+                    data= gPed.getOnePedidoCodigo(codigo)
+                    if(data):
+                        print(tabulate(data,tablefmt="grid"))
+                        raise Exception("El codigo del pedido ya existe")
+                    else:
+                        pedido["codigo_pedido"]=codigo
+                else:
+                    raise Exception("El codigo no cumple con el estandar, intentelo denuevo")  
+                 
+            if not pedido.get("fecha_pedido"):
+                fechaPed = input("Ingrese la fecha del pedido (Eje: 2007-10-23  ): ")
+                if re.match(r'^\d{4}-\d{2}-\d{2}$',fechaPed)is not None:
+                    pedido["fecha_pago"] = fechaPed
+                else:
+                    raise Exception("La fecha del pedido no cumple con el estandar, intentelo denuevo")
+                
+            if not pedido.get("fecha_esperada"):
+                fechaEs = input("Ingrese la fecha esperada del pedido (Eje: 2007-10-23  ): ")
+                if re.match(r'^\d{4}-\d{2}-\d{2}$',fechaEs)is not None:
+                    pedido["fecha_esperada"] = fechaEs
+                else:
+                    raise Exception("La fecha esperada del pedido no cumple con el estandar, intentelo denuevo") 
+
+            if not pedido.get("fecha_entrega"):
+                fechaEn = input("Ingrese la fecha de entrega del pedido (Eje: 2007-10-23  ): ")
+                if re.match(r'^\d{4}-\d{2}-\d{2}$',fechaEn)is not None:
+                    pedido["fecha_entrega"] = fechaEn
+                else:
+                    raise Exception("La fecha de entrega del pedido no cumple con el estandar, intentelo denuevo")             
+            
+            if not pedido.get("estado"):
+                estado = input("Ingrese el estado del pedido: ")
+                if re.match(r'^([A-Za-z]\s*)+$', estado) is not None:
+                    data= gPed.getAllEstadoPedido(estado)
+                    if(data):
+                        print(tabulate(data,tablefmt="grid"))
+                        raise Exception("El estado del pedido ya existe")
+                    else:
+                        pedido["estado"] = estado
+                else:
+                    raise Exception("El total del pago no cumple con el estandar, intentelo denuevo")
+
+            if not pedido.get("comentario"):
+                comentario = input("Ingrese un comentario del pedido: ")
+                if re.match(r'^[A-Z][^\s]*((?:\s+[A-Z][^\s]*)*)$', comentario) is not None:
+                    pedido["comentario"] = comentario
+                else:
+                    raise Exception("El comentario no cumple con el estandar, intentelo denuevo")
+                
+            if not pedido.get("codigo_cliente"):
+                codigo = input("Ingrese el codigo del cliente (Eje:12): ")
+                if re.match(r'^[0-9]+$', codigo) is not None:
+                    codigo = int(codigo)
+                    data= gPed.getAllClientecodigo(codigo)
                     if(data):
                         print(tabulate(data,tablefmt="grid"))
                         raise Exception("El codigo del cliente ya existe")
                     else:
-                        pagos["codigo_cliente"]=codigo
+                        pedido["codigo_cliente"]=codigo
+                        break
                 else:
-                    raise Exception("El codigo no cumple con el estandar, intentelo denuevo")
+                    raise Exception("El codigo no cumple con el estandar, intentelo denuevo")  
 
-            #Esta expresión regular garantiza que la palabra comience con una letra mayúscula ([A-Z]) y puede tener cualquier combinación de letras mayúsculas y minúsculas en cualquier posición de la palabra. 
-
-
-            if not pagos.get("forma_pago"):
-                formaPa =  input("Ingrese la forma de pago (Eje: PayPal - Transferencia-  Cheque): ")
-                if re.match(r'^[A-Z][a-zA-Z0-9-\s]*$', formaPa) is not None:
-                    data= gPa.getAllFormasPago(formaPa)
-                    if(data):
-                        pagos["forma_pago"]=formaPa
-                    else:
-                        raise Exception("La forma de pago no esta disponible, intentelo denuevo")
-                
-                else:
-                    raise Exception("La forma de pago no cumple con el estandar, intentelo denuevo")
-            
-            if not pagos.get("id_transaccion"):
-                idTrans = input("Ingrese el id de su transaccion (Eje: ak-std-000025)  : ")
-                if re.match(r'^[a-z]{2}-[a-z]{3}-\d{6}$', idTrans) is not None:
-                    data = gPa.getAllIdTrans(idTrans)
-                    if data:
-                        raise Exception("El Id de transaccion ya existe.")
-                    else:
-                        pagos["id_transaccion"] = idTrans
-                else:
-                    raise Exception("El Id no cumple con el estandar, intentelo denuevo")
-                
-            if not pagos.get("fecha_pago"):
-                fechaPa = input("Ingrese la fecha de pago (Eje: 2009-01-16  ): ")
-                if re.match(r'^\d{4}-\d{2}-\d{2}$',fechaPa)is not None:
-                    pagos["fecha_pago"] = fechaPa
-                else:
-                    raise Exception("La fecha de pago no cumple con el estandar, intentelo denuevo")
-            
-            if not pagos.get("total"):
-                total = input("Ingrese el total del pago: ")
-                if re.match(r'^[0-9]+$', total) is not None:
-                    total = int(total)
-                    pagos["total"] = total
-                    break
-                else:
-                    raise Exception("El total del pago no cumple con el estandar, intentelo denuevo")
-                
         except Exception as error:
             print('-ERROR-')
             print(error)
-
-
-
 
     peticion = requests.post("http://192.168.1.11:55010", data= json.dumps(pedido))
     res = peticion.json()

@@ -2,7 +2,7 @@ import os
 from tabulate import tabulate
 import json
 import requests
-import modules.getClients as Cli
+import modules.getClients as gCli
 import re
 
 
@@ -181,7 +181,7 @@ def postClients():
     return [res]
 
 def deleteCliente(id):
-    data = Cli.getClienteCodigo(id)
+    data = gCli.getClienteCodigo(id)
     if(len(data)):
 
         peticion = requests.delete(f"http://172.16.103.39:5507/clientes/{id}")
@@ -200,7 +200,7 @@ def deleteCliente(id):
             "status": 400,
         }
     
-def     
+# def     
 
 def menu():
     while True:
@@ -220,7 +220,7 @@ ADMINISTRAR DATOS DE CLIENTES
                 print(tabulate(postClients(), tablefmt="grid"))
                 input("Precione una tecla para continuar.....")
             if(opcion == 2):
-                idClient = input("Ingrese el id del cliente q desea eliminar: ")
+                idClient = input("Ingrese el id del cliente que desea eliminar: ")
                 print(tabulate(deleteCliente(idClient)["body"], tablefmt="grid"))
                 input("Presione una tecla para continuar......")
 

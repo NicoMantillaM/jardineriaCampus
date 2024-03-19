@@ -4,10 +4,21 @@ import requests
 
 def getAllData():
     #json-server storage/producto.json -b 5505
-    peticion = requests.get("http://172.16.100.115:5505")
+    peticion = requests.get("http://192.168.1.11:5505")
     data = peticion.json()
     return data
-    
+
+def getProductoCodigo(codigo):
+   peticion = requests.get(f"http://172.16.103.39:5507/productos/{codigo}") 
+   data = peticion.json()
+   return [peticion.json()] if peticion.ok else[]
+
+
+def getProductoCodigo2(codigo):
+    for val in getAllData():
+        if (val.get("codigo_producto")== codigo):
+            return [{val}]
+
 #Devuelve un listado con todas los productos q pertenecen a la gama ornamentales
 #y q tienen mas de 100 unidades en stock. El listado debera estar ordenado por su precio de venta, mayor a menor
 

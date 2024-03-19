@@ -112,8 +112,8 @@ def postEmpleado():
                         raise Exception ("El puesto del empleado no cumple con el estandar, intentelo denuevo")
 
         except Exception as error:
-            print('-ERROR-')
-            print(error)    
+                print('-ERROR-')
+                print(error)    
 
 
     peticion = requests.post("http://192.168.1.11:5508", data=json.dumps(empleado))

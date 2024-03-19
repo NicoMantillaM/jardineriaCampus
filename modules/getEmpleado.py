@@ -14,9 +14,9 @@ def getAllNombresPuesto(puesto):
         if val.get("puesto") == puesto:
             return [val]  
 
-def getOneEmpleadocodigo(codigoEmp):
+def getOneEmpleadocodigo(codigo):
     for val in getAllDataEmpleado():
-        if (val.get("codigo_empleado") == codigoEmp):
+        if (val.get("codigo_empleado") == codigo):
             return val
 
 def getAllNombreApellidoEmailJefe(codigo):

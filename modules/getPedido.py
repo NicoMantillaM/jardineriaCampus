@@ -9,15 +9,31 @@ def getAllDataPedido():
   data= peticion.json()
   return data
 
+def getOnePedidoCodigo(codigo):
+    for val in getAllDataPedido():
+        if (val.get("codigo_cliente")== codigo):
+            return [{ 
+            "codigo_pedido": val.get("codigo_pedido"),
+        }]
+
+
 #filtro 7
 def getAllEstadoPedido():
     estadoPedidos = []
     for val in getAllDataPedido():
         estadoPedidos.append({
-                    "codigo_pedido": val.get("codigo_pedido"),
-                    "estado": val.get('estado')
-                    })
+                "codigo_pedido": val.get("codigo_pedido"),
+                "estado": val.get('estado')
+            })
     return estadoPedidos
+
+
+def getAllClientecodigo(codigo):
+    for val in getAllDataPedido():
+        if (val.get("codigo_cliente")== codigo):
+            return [{ 
+            "codigo_pedido": val.get("codigo_pedido"),
+        }]
 
 #filtro 9
 

@@ -93,7 +93,7 @@ def postPedido():
             print('-ERROR-')
             print(error)
 
-    peticion = requests.post("http://192.168.1.11:55010", data= json.dumps(pedido))
+    peticion = requests.post("http://172.16.103.18:55010", data= json.dumps(pedido))
     res = peticion.json()
     res["Mensaje"]= "Producto Guardado"
     return [res]

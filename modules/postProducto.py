@@ -88,16 +88,16 @@ def postProducto():
         except Exception as error:
             print(error)
 
-    peticion = requests.post("http://192.168.1.11:5505", data=json.dumps(producto))
+    peticion = requests.post("http://172.16.103.18:5505", data=json.dumps(producto))
     res = peticion.json()
     res["Mensaje"]= "Producto Guardado"
     return [res]
 
 def deleteProduct(id):
-    data = gPro.getProductoCodigo(id)
+    data= gPro.getProductoCodigo(id)
     if(len(data)):
 
-        peticion = requests.delete(f"http://192.168.1.11:5505/productos/{id}")
+        peticion = requests.delete(f"http://172.16.103.18:5505/productos/{id}")
         if(peticion.status_code == 204):
             data.append({"message": "producto eliminado correctamente"})
             return {
@@ -114,7 +114,7 @@ def deleteProduct(id):
         }
 
 def updateProducto(id):
-    data=gPro.getProductCodigo(id)
+    data=gPro.getProductoCodigo(id)
     if(len(data)):
             producto=dict()
             while True:
@@ -194,18 +194,17 @@ def updateProducto(id):
                             raise Exception("El precio de venta del producto no cumple con el estandar establecido")                    
                 except Exception as error:
                     print(error)
-                    pet=requests.put(f"http://172.16.103.37:5503/producto/{id}", data=json.dumps(producto))
-                    res=pet.json()
-                    res["Mensaje"] = "Producto Guardado"
-                    return [res]
+            peticion=requests.put(f"http://172.16.103.18:5505/productos/{id}", data=json.dumps(producto))
+            res=peticion.json()
+            res["Mensaje"] = "Producto Guardado"
+            return [res]
     else:
-        return{
-            "Body":[{
+        return[{
                 "Mensaje":"El producto no ha sido encontrado",
-                "ID":id
-            }],
-                "Status":400
-            }   
+                "id":id
+        }]
+           
+     
 
 def menu():
     while True:
@@ -215,17 +214,24 @@ ADMINISTRAR DATOS DE PRODUCTOS
 0.Regresar al menu principal
 1.Guardar un producto nuevo
 2.Eliminar un producto
+3.Actualizar producto
     -PRESIONA CTRL + C PARA REGRESAR AL MENU PRINCIPAL
 """)
         
         try:
-            opcion = int(input("\nSelecione una de las opciones: "))
+            opcion = input("\nSelecione una de las opciones: ")
+            if(re.match(r'^[0-3]$', opcion)is not None):
+                opcion=int(opcion)
             if(opcion == 1):
                 print(tabulate(postProducto(), tablefmt="Fancy_grid"))
                 input("Precione una tecla para continuar.....")
             if(opcion == 2):
-                idProducto = input("Ingrese el id del producto que desea eliminar: ")
+                idProducto = int(input("Ingrese el id del producto que desea eliminar: "))
                 print(tabulate(deleteProduct(idProducto)["body"], tablefmt="Fancy_grid"))
+                input("Presione una tecla para continuar......")
+            if(opcion == 3):
+                idProducto = int(input("Ingrese el id del producto que desea Actualizar : "))
+                print(tabulate(updateProducto(idProducto), tablefmt="Fancy_grid"))
                 input("Presione una tecla para continuar......")
 
             elif(opcion == 0):

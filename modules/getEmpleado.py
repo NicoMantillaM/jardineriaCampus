@@ -4,7 +4,7 @@ import requests
 
 def getAllDataEmpleado():
   #json-server storage/empleado.json -b 5508
-  peticion=requests.get("http://172.16.103.19:5508")
+  peticion=requests.get("http://172.16.103.18:5508")
   data= peticion.json()
   return data
 

@@ -76,7 +76,7 @@ def postPago():
             print('-ERROR-')
             print(error)
 
-    peticion = requests.post("http://192.168.1.11:55011", data=json.dumps(pagos))
+    peticion = requests.post("http://172.16.103.11:55011", data=json.dumps(pagos))
     res = peticion.json()
     res["Mensaje"]= "Producto Guardado"
     return [res]

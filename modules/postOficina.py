@@ -101,7 +101,7 @@ def postOficina():
         
     
 
-    peticion = requests.post("http://192.168.1.11:5509", data=json.dumps(oficina))
+    peticion = requests.post("http://172.16.103.18:5509", data=json.dumps(oficina))
     res = peticion.json()
     res["Mensaje"]= "Producto Guardado"
     return [res]

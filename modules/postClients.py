@@ -3,6 +3,7 @@ from tabulate import tabulate
 import json
 import requests
 import modules.getClients as gCli
+import modules.getGamas as gGa
 import re
 
 
@@ -175,7 +176,7 @@ def postClients():
             print('-ERROR-')
             print(error)        
 
-    peticion = requests.post("http://192.168.1.11:5507", data=json.dumps(cliente))
+    peticion = requests.post("http://172.16.103.18:5507", data=json.dumps(cliente))
     res = peticion.json()
     res["Mensaje"]= "Producto Guardado"
     return [res]
@@ -184,7 +185,7 @@ def deleteCliente(id):
     data = gCli.getClienteCodigo(id)
     if(len(data)):
 
-        peticion = requests.delete(f"http://172.16.103.39:5507/clientes/{id}")
+        peticion = requests.delete(f"http://172.16.103.18:5507/clientes/{id}")
         if(peticion.status_code == 204):
             data.append({"message": "producto eliminado correctamente"})
             return {
@@ -200,7 +201,119 @@ def deleteCliente(id):
             "status": 400,
         }
     
-# def     
+def updateCliente(id):
+    data= gCli.getClienteCodigo(id)
+    if(len(data)):
+            clientes=dict()
+            while True:
+                try:
+                    if(not clientes.get("codigo_cliente")):
+                        codigo_cliente=input("Ingrese el codigo del cliente: ")
+                        if(re.match(r'^[0-9]+$',codigo_cliente)is not None):
+                            codigo_cliente= int(codigo_cliente)
+                            data=gCli.getClienteCodigo2(codigo_cliente)
+                            if(data):
+                                print(tabulate(data,tablefmt="grid"))
+                                raise Exception("El codigo ya pertenece a un cliente")
+                            else:
+                                clientes["codigo_cliente"]=codigo_cliente
+                        else:
+                            raise Exception("El codigo del cliente no cumple con el estandar establecido")
+                    
+                    if(not clientes.get("nombre_cliente")):
+                        nombre_cliente=input("Ingrese el nombre del cliente: ")
+                        if(re.match(r'^([A-Za-z][a-z]*\s*)+$',nombre_cliente)is not None):
+                            clientes["nombre_cliente"]=nombre_cliente
+                        else:
+                            raise Exception("El nombre del producto no cumple con el estandar establecido")
+
+                    if(not clientes.get("nombre_contacto")):
+                        nombre_contacto=input("Ingrese su nombre: ")
+                        if(re.match(r'^([A-Za-z][a-z]*\s*)+$',nombre_contacto)is not None):
+                            clientes["nombre_contacto"]=nombre_contacto
+                        else:
+                            raise Exception("Su nombre no cumple con el estandar establecido") 
+
+                    if(not clientes.get("apellido_contacto")):
+                        apellido_contacto=input("Ingrese sus apellidos: ")
+                        if(re.match(r'^([A-Za-z][a-z]*\s*)+$',apellido_contacto)is not None):
+                            clientes["apellido_contacto"]=apellido_contacto
+                        else:
+                            raise Exception("Sus apellidos no cumplen con el estandar establecido")   
+
+                    if(not clientes.get("telefono")):
+                        telefono=input("Ingrese su telefono: ")
+                        if(re.match(r'^[0-9]{9,11}$',telefono)is not None):
+                            telefono= int(telefono)
+                            clientes["telefono"]=telefono
+                        else:
+                            raise Exception("Su telefono no cumple con el estandar establecido")  
+
+                    if(not clientes.get("fax")):
+                        fax=input("Ingrese su fax: ")
+                        if(re.match(r'^[0-9]{9,11}$',fax)is not None):
+                            fax= int(fax)
+                            clientes["fax"]=fax
+                        else:
+                            raise Exception("Su fax no cumple con el estandar establecido")   
+
+                    if(not clientes.get("linea_direccion1")):
+                        linea_direccion1=input("Ingrese su direccion principal: ")
+                        if(re.match(r'^[0-9A-Za-z\s]+$',linea_direccion1)is not None):
+                            clientes["linea_direccion1"]=linea_direccion1
+                        else:
+                            raise Exception("Su linea de direccion principal no cumple con el estandar establecido")   
+                    
+                    if(not clientes.get("linea_direccion2")):
+                        linea_direccion2=input("Ingrese su direccion principal: ")
+                        if(re.match(r'^[0-9A-Za-z\s]+$',linea_direccion2)is not None):
+                            clientes["linea_direccion2"]=linea_direccion2
+                        else:
+                            raise Exception("Su linea de direccion secundaria no cumple con el estandar establecido")   
+                    if(not clientes.get("ciudad")):
+                        ciudad=input("Ingrese su ciudad: ")
+                        if(re.match(r'^([A-Za-z][a-z]*\s*)+$',ciudad)is not None):
+                            clientes["ciudad"]=ciudad
+                        else:
+                            raise Exception("Su ciudad no cumple con el estandar establecido")  
+                    
+                
+                    if(not clientes.get("codigo_postal")):
+                        codigo_postal=input("Ingrese su codigo postal: ")
+                        if(re.match(r'^[0-9]{5}$',codigo_postal)is not None):
+                            codigo_postal= int(codigo_postal)
+                            clientes["codigo_postal"]=codigo_postal
+                        else:
+                            raise Exception("Su codigo postal no cumple con el estandar establecido")  
+                    
+                    # if(not clientes.get("codigo_empleado_rep_ventas")):
+                    #     codigo_empleado_rep_ventas=input("Seleccione el codigo de su Representante de Ventas:\n" + "".join([f"\t{i}. {val}\n" for i, val in enumerate(gGa.getAllCoEmp())]))
+                    #     if(re.match(r'^[0-9]$',codigo_empleado_rep_ventas)is not None):
+                    #         codigo_empleado_rep_ventas= int(codigo_empleado_rep_ventas)
+                    #         codigo_empleado_rep_ventas = gCem.getAllCoEmp()[codigo_empleado_rep_ventas]
+                    #         clientes["codigo_empleado_rep_ventas"]=codigo_empleado_rep_ventas
+                    #     else:
+                    #         raise Exception("El codigo de su Representante no cumple con el estandar establecido")  
+                            
+                    if(not clientes.get("limite_credito")):
+                        limite_credito=input("Ingrese su limite de credito: ")
+                        if(re.match(r'^[0-9]{4,5}$',limite_credito)is not None):
+                            limite_credito= float(limite_credito)
+                            clientes["limite_credito"]=limite_credito
+                            break
+                        else:
+                            raise Exception("Su limite de credito no cumple con el estandar establecido")  
+                except Exception as error:
+                    print(error)  
+            pet=requests.put(f"http://172.16.103.26:5506/clientes/{id}", data=json.dumps(clientes))
+            res=pet.json()
+            res["Mensaje"] = "Producto Guardado"
+            return [res]
+    else:
+        return[{
+            "message": "Producto no encontrado",
+            "id": id
+            }]   
 
 def menu():
     while True:
@@ -210,6 +323,7 @@ ADMINISTRAR DATOS DE CLIENTES
 0.Regresar al menu principal
 1.Guardar un cliente nuevo
 2.Eliminar
+3.Actualizar
     -PRESIONA CTRL + C PARA REGRESAR AL MENU PRINCIPAL
 """)
         
@@ -223,8 +337,13 @@ ADMINISTRAR DATOS DE CLIENTES
                 idClient = input("Ingrese el id del cliente que desea eliminar: ")
                 print(tabulate(deleteCliente(idClient)["body"], tablefmt="grid"))
                 input("Presione una tecla para continuar......")
+            if(opcion == 3):
+                idClient = input("Ingrese el id del cliente que desea eliminar: ")
+                print(tabulate(updateCliente(idClient), tablefmt="grid"))
+                input("Presione una tecla para continuar......")
 
             elif(opcion == 0):
                 break
         except KeyboardInterrupt:
             break
+

@@ -112,7 +112,7 @@ def postEmpleado():
                     print(error)    
 
 
-    peticion = requests.post("http://172.16.103.19:5508", data=json.dumps(empleado))
+    peticion = requests.post("http://172.16.103.18:5508", data=json.dumps(empleado))
     res = peticion.json()
     res["Mensaje"]= "Producto Guardado"
     return [res]

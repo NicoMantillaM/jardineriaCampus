@@ -1,3 +1,5 @@
+
+
 import os
 from tabulate import tabulate
 import requests
@@ -5,18 +7,18 @@ import json
 
 def getAllDataClient():
   #json-server storage/cliente.json -b 5507
-  peticion=requests.get("http://192.168.1.11:5507")
+  peticion=requests.get("http://154.38.171.54:5001/cliente")
   data= peticion.json()
   return data
 
 def getAllDataEmpleado():
  #json-server storage/empleado.json -b 5508
-  peticion=requests.get("http://192.168.1.11:5508")
+  peticion=requests.get("http://154.38.171.54:5003/empleados")
   data= peticion.json()
   return data 
 
 def getClienteCodigo(id):
-   peticion = requests.get(f"http://192.168.1.11:5507/clientes/{id}") 
+   peticion = requests.get(f"http://154.38.171.54:5001/cliente/{id}") 
    data = peticion.json()
    return [data]
 
@@ -154,7 +156,7 @@ def getAllClientsRepre():
          }
         )
   return clientesRepre
-    
+
 
 def menu():
   while True:
@@ -190,8 +192,7 @@ Reportes de los clientes
           ciudad= str(input("\n Ingrese la ciudad"))
           print(tabulate(getAllClientCreditCiudad(clienteCredic,ciudad),tablefmt="grid"))
           input("Presione una tecla para continuar..........")
-        #except KeyboardInterrupt:
-          #return menu()
+
       elif(opcion == 4):
         print(tabulate(getAllClientCreditEntre(),tablefmt="grid"))
         input("Presione una tecla para continuar..........")

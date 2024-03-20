@@ -176,7 +176,7 @@ def postClients():
             print('-ERROR-')
             print(error)        
 
-    peticion = requests.post("http://192.168.1.11:5507", data=json.dumps(cliente))
+    peticion = requests.post("http://154.38.171.54:5001/cliente/", data=json.dumps(cliente))
     res = peticion.json()
     res["Mensaje"]= "Producto Guardado"
     return [res]
@@ -185,7 +185,7 @@ def deleteCliente(id):
     data = gCli.getClienteCodigo(id)
     if(len(data)):
 
-        peticion = requests.delete(f"http://192.168.1.11:5507/clientes/{id}")
+        peticion = requests.delete(f"http://154.38.171.54:5001/cliente/{id}")
         if(peticion.status_code == 204):
             data.append({"message": "producto eliminado correctamente"})
             return {
@@ -322,7 +322,7 @@ def updateCliente(id):
                 except Exception as error:
                     print(error)  
                     
-            peticion=requests.put(f"http://192.168.1.11:5506/clientes/{id}", data=json.dumps(clientes))
+            peticion=requests.put(f"http://154.38.171.54:5001/cliente/{id}", data=json.dumps(clientes))
             res=peticion.json()
             res["Mensaje"] = "Producto Guardado"
             return [res]

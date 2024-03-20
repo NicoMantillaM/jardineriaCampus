@@ -6,6 +6,7 @@ import modules.getGamas as gG
 import modules.getProducto as gPro
 import re 
 
+
 def postProducto():
     #json-server storage/producto.json -b 5505
     producto = dict()
@@ -88,16 +89,16 @@ def postProducto():
         except Exception as error:
             print(error)
 
-    peticion = requests.post("http://192.168.1.11:5505", data=json.dumps(producto))
+    peticion = requests.post("http://154.38.171.54:5008/productos", data=json.dumps(producto))
     res = peticion.json()
     res["Mensaje"]= "Producto Guardado"
     return [res]
 
 def deleteProduct(id):
-    data= gPro.getProductoCodigo(id)
+    data= gPro.getProductoCodg(id)
     if(len(data)):
 
-        peticion = requests.delete(f"http://192.168.1.11:5505/productos/{id}")
+        peticion = requests.delete(f"http://154.38.171.54:5008/productos/{id}")
         if(peticion.status_code == 204):
             data.append({"message": "producto eliminado correctamente"})
             return {
@@ -114,15 +115,15 @@ def deleteProduct(id):
         }
 
 def updateProducto(id):
-    data= gPro.getProductoCodigo(id)
+    data= gPro.getProductoCodg(id)
     if(len(data)):
         producto = dict()
         while True:
             try: 
                 if not producto.get("codigo_producto"):
                     codigo = input("Ingrese el codigo del producto (Eje:11679): ")
-                    if re.match(r'^[0-9]+$', codigo) is not None:
-                        data= gPro.getProductoCodigo(codigo)
+                    if re.match(r'^[A-Z]{2}-[0-9]{2,3}$', codigo) is not None:
+                        data= gPro.getProductoCodigo2(codigo)
                         if(data):
                             print(tabulate(data,tablefmt="Fancy_grid"))
                             raise Exception("El codigo del producto ya existe")
@@ -133,7 +134,7 @@ def updateProducto(id):
                     
                 if not producto.get("nombre"):
                     nombre=input("Ingrese el nombre del producto: ")
-                    if(re.match(r'^([A-Za-z][a-z]*\s*)+$',nombre)is not None):
+                    if(re.match(r'^[A-Za-záéíóúüñ\s\d.,:;()-]+$',nombre)is not None):
                         producto["nombre"]=nombre
                     else:
                         raise Exception("El nombre del producto no cumple con el estandar, intentelo denuevo")
@@ -141,8 +142,8 @@ def updateProducto(id):
                 if not producto.get("gama"):
                     gama= input("Seleccione la gama del producto:\n" + "".join([f"\t{i}. {val}\n" for i, val in enumerate(gG.getAllNombre())]))
                 if re.match(r'^[0-4]$', gama) is not None:  
-                    gama = int(gama)
-                    data = gG.getAllNombre()[gama]
+                    gaman = int(gama)
+                    gama = gG.getAllNombre()[gaman]
                     producto["gama"] = gama
                 else:
                     raise Exception("La gama del producto no cumple con el estandar, intentelo denuevo")
@@ -163,7 +164,7 @@ def updateProducto(id):
                     
                 if(not producto.get("descripcion")):
                     descripcion=input("Ingrese la descripcion del producto: ")
-                    if(re.match(r'^([A-Za-z][a-z]*\s*)+$',descripcion)is not None):
+                    if(re.match(r'^[^\n]+$',descripcion)is not None):
                         producto["descripcion"]=descripcion
                     else:
                         raise Exception("La descripcion del producto no cumple con el estandar, intentelo denuevo")  
@@ -178,7 +179,7 @@ def updateProducto(id):
                     
                 if(not producto.get("precio_venta")):
                     precio_venta=input("Ingrese el precio de venta del producto: ")
-                    if(re.match(r'^[0-9]{2,3}$',precio_venta)is not None):
+                    if(re.match(r'^[0-9]{1,3}$',precio_venta)is not None):
                         precio_venta= int(precio_venta)
                         producto["precio_venta"]=precio_venta
                     else:
@@ -196,7 +197,7 @@ def updateProducto(id):
             except Exception as error:
                 print(error)
 
-        peticion = requests.update(f"http://192.168.1.11:5505/productos/{id}", data=json.dumps(producto))
+        peticion = requests.put(f"http://154.38.171.54:5008/productos/{id}", data=json.dumps(producto))
         res = peticion.json()
         res["Mensaje"]= "Producto Guardado"
         return [res]
@@ -206,7 +207,13 @@ def updateProducto(id):
             "id": id
         }] 
 
- 
+def updateProducto2(id):
+    data= gPro.getProductoCodg(id)
+    if(len(data)):
+        print(tabulate(data, tablefmt="grid"))
+        
+
+
 def menu():
     while True:
         os.system("clear")

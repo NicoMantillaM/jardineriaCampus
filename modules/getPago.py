@@ -4,19 +4,19 @@ from tabulate import tabulate
 
 def getAllDataPagos():
     #json-server storage/pago.json -b 55011
-    peticion=requests.get("http://192.168.1.11:55011")
+    peticion=requests.get("http://154.38.171.54:5006/pagos")
     data= peticion.json()
     return data 
 
 def getAllDataClient():
   #json-server storage/cliente.json -b 5507
-  peticion=requests.get("http://192.168.1.11:5507")
+  peticion=requests.get("http://154.38.171.54:5001/cliente")
   data= peticion.json()
   return data
 
 def getAllDataEmpleado():
   #json-server storage/empleado.json -b 5508
-  peticion=requests.get("http://192.168.1.11:5508")
+  peticion=requests.get("http://154.38.171.54:5003/empleados")
   data= peticion.json()
   return data
 

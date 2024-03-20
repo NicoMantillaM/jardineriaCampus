@@ -5,7 +5,7 @@ from tabulate import tabulate
 
 def getAllDataPedido():
   #json-server storage/pedido.json -b 55010
-  peticion=requests.get("http://172.16.103.18:55010")
+  peticion=requests.get("http://154.38.171.54:5007/pedidos")
   data= peticion.json()
   return data
 

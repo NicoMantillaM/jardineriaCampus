@@ -4,19 +4,18 @@ import requests
 
 def getAllData():
     #json-server storage/producto.json -b 5505
-    peticion = requests.get("http://172.16.103.18:5505")
+    peticion = requests.get("http://154.38.171.54:5008/productos")
     data = peticion.json()
     return data
 
 def getProductoCodigo(codigo):
-   peticion = requests.get(f"http://172.16.103.18:5507/productos/{codigo}") 
+   peticion = requests.get(f"http://154.38.171.54:5008/productos/{codigo}") 
 
    return [peticion.json()] if peticion.ok else[]
 
 def getProductoCodg(id):
-   peticion = requests.get(f"http://172.16.103.18:5507/productos/{id}") 
-   data = peticion.json()
-   return [data]
+   peticion = requests.get(f"http://154.38.171.54:5008/productos/{id}") 
+   return [peticion.json()] if peticion.ok else[]
 
 
 def getProductoCodigo2(codigo):

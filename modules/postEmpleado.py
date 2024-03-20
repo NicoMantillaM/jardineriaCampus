@@ -112,7 +112,7 @@ def postEmpleado():
                     print(error)    
 
 
-    peticion = requests.post("http://192.168.1.11:5508", data=json.dumps(empleado))
+    peticion = requests.post("http://154.38.171.54:5003/empleados", data=json.dumps(empleado))
     res = peticion.json()
     res["Mensaje"]= "Producto Guardado"
     return [res]
@@ -121,7 +121,7 @@ def deleteEmpleado(id):
     data = gEmp.getEmpleadoCodigo(id)
     if(len(data)):
 
-        peticion = requests.delete(f"http://192.168.1.11:5508/empleados/{id}")
+        peticion = requests.delete(f"http://154.38.171.54:5003/empleados/{id}")
         if(peticion.status_code == 204):
             data.append({"message": "empleado eliminado correctamente"})
             return {

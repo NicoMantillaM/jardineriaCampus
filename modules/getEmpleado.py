@@ -4,9 +4,14 @@ import requests
 
 def getAllDataEmpleado():
   #json-server storage/empleado.json -b 5508
-  peticion=requests.get("http://172.16.103.18:5508")
+  peticion=requests.get("http://192.168.1.11:5508")
   data= peticion.json()
   return data
+
+def getEmpleadoCodigo(id):
+   peticion = requests.get(f"http://192.168.1.11:5508/empleados/{id}") 
+   data = peticion.json()
+   return [data]
 
 
 def getAllNombresPuesto(puesto):

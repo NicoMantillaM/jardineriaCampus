@@ -93,10 +93,30 @@ def postPedido():
             print('-ERROR-')
             print(error)
 
-    peticion = requests.post("http://172.16.103.18:55010", data= json.dumps(pedido))
+    peticion = requests.post("http://192.168.1.11:55010", data= json.dumps(pedido))
     res = peticion.json()
     res["Mensaje"]= "Producto Guardado"
     return [res]
+
+def deleteCliente(id):
+    data = gCli.getClienteCodigo(id)
+    if(len(data)):
+
+        peticion = requests.delete(f"http://192.168.1.11:5507/clientes/{id}")
+        if(peticion.status_code == 204):
+            data.append({"message": "producto eliminado correctamente"})
+            return {
+                "body": data,
+                "status": peticion.status_code,
+            }
+    else:
+        return {
+                "body":[{
+                    "message": "producto no encontrado",
+                    "id": id
+            }],
+            "status": 400,
+        }
 
 def menu():
     while True:

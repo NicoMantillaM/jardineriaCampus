@@ -13,6 +13,11 @@ def getProductoCodigo(codigo):
 
    return [peticion.json()] if peticion.ok else[]
 
+def getProductoCodg(id):
+   peticion = requests.get(f"http://172.16.103.18:5507/productos/{id}") 
+   data = peticion.json()
+   return [data]
+
 
 def getProductoCodigo2(codigo):
     for val in getAllData():

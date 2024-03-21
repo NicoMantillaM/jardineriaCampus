@@ -95,27 +95,27 @@ def postProducto():
     return [res]
 
 def deleteProduct(id):
-    data= gPro.getProductoCodg(id)
+    data= gPro.getProductoCodigo(id)
     if(len(data)):
 
         peticion = requests.delete(f"http://154.38.171.54:5008/productos/{id}")
         if(peticion.status_code == 204):
             data.append({"message": "producto eliminado correctamente"})
-            return {
-                "body": data,
-                "status": peticion.status_code,
-            }
+            break
+            
     else:
-        return {
-                "body":[{
-                    "message": "producto no encontrado",
-                    "id": id
-            }],
-            "status": 400,
-        }
+        return [{ 
+            "message": "producto no encontrado",
+            "id": id
+        }]
+                
+                   
+            
+        
+   
 
 def updateProducto(id):
-    data= gPro.getProductoCodg(id)
+    data= gPro.getProductoCodigo(id)
     if(len(data)):
         producto = dict()
         while True:
@@ -123,7 +123,7 @@ def updateProducto(id):
                 if not producto.get("codigo_producto"):
                     codigo = input("Ingrese el codigo del producto (Eje:11679): ")
                     if re.match(r'^[A-Z]{2}-\d{1,3}$', codigo) is not None:
-                        data= gPro.getProductoCodigo2(codigo)
+                        data= gPro.getProductoCodigo(codigo)
                         if(data):
                             print(tabulate(data,tablefmt="Fancy_grid"))
                         else:
@@ -201,10 +201,7 @@ def updateProducto(id):
         res["Mensaje"]= "Producto Guardado"
         return [res]
     else:
-        return[{
-            "message": "Producto no encontrado",
-            "id": id
-        }] 
+        print ("noxd")
 
 # def updateProductoCodigo(iD):
 #     while True:
@@ -258,11 +255,11 @@ ADMINISTRAR DATOS DE PRODUCTOS
                 print(tabulate(postProducto(), tablefmt="Fancy_grid"))
                 input("Precione una tecla para continuar.....")
             if(opcion == 2):
-                idProducto = int(input("Ingrese el id del producto que desea eliminar: "))
-                print(tabulate(deleteProduct(idProducto)["body"], tablefmt="Fancy_grid"))
+                idProducto = (input("Ingrese el id del producto que desea eliminar: "))
+                print(tabulate(deleteProduct(idProducto), tablefmt="Fancy_grid"))
                 input("Presione una tecla para continuar......")
             if(opcion == 3):
-                idProducto = int(input("Ingrese el id del producto que desea Actualizar : "))
+                idProducto = (input("Ingrese el id del producto que desea Actualizar : "))
                 print(tabulate(updateProducto(idProducto), tablefmt="Fancy_grid"))
                 input("Presione una tecla para continuar......")
 

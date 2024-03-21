@@ -14,12 +14,13 @@ def getProductoCodigo(codigo):
 
    return [peticion.json()] if peticion.ok else[]
 
-def getProductoCodg(iD):
-   peticion = requests.get(f"http://154.38.171.54:5008/productos?id={iD}") 
-   data= peticion.json()
-   if(len(data)==0):
-       data=None
-   return data
+
+# def getProductoCodg(iD):
+#    peticion = requests.get(f"http://154.38.171.54:5008/productos?id={iD}") 
+#    data= peticion.json()
+#    if(len(data)==0):
+#        data=None
+#    return data
 
 
 def getProductoCodigo2(codigo):

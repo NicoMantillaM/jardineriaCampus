@@ -209,7 +209,7 @@ def updateCliente(id):
                 try:
                     if(not clientes.get("codigo_cliente")):
                         codigo_cliente=input("Ingrese el codigo del cliente: ")
-                        if(re.match(r'^[0-9]+$',codigo_cliente)is not None):
+                        if(re.match(r'^\d{1,5}$',codigo_cliente)is not None):
                             codigo_cliente= int(codigo_cliente)
                             data=gCli.getClienteCodigo2(codigo_cliente)
                             if(data):
@@ -222,21 +222,21 @@ def updateCliente(id):
                     
                     if(not clientes.get("nombre_cliente")):
                         nombre_cliente=input("Ingrese el nombre del cliente: ")
-                        if(re.match(r'^([A-Za-z][a-z]*\s*)+$',nombre_cliente)is not None):
+                        if(re.match(r'^[A-Z][a-zA-Z0-9\s]+$',nombre_cliente)is not None):
                             clientes["nombre_cliente"]=nombre_cliente
                         else:
                             raise Exception("El nombre del producto no cumple con el estandar establecido")
 
                     if(not clientes.get("nombre_contacto")):
                         nombre_contacto=input("Ingrese su nombre: ")
-                        if(re.match(r'^([A-Za-z][a-z]*\s*)+$',nombre_contacto)is not None):
+                        if(re.match(r'^[A-Z][a-zA-Z0-9\s]+$',nombre_contacto)is not None):
                             clientes["nombre_contacto"]=nombre_contacto
                         else:
                             raise Exception("Su nombre no cumple con el estandar establecido") 
 
                     if(not clientes.get("apellido_contacto")):
                         apellido_contacto=input("Ingrese sus apellidos: ")
-                        if(re.match(r'^([A-Za-z][a-z]*\s*)+$',apellido_contacto)is not None):
+                        if(re.match(r'^[A-Z][a-zA-Z0-9\s]+$',apellido_contacto)is not None):
                             clientes["apellido_contacto"]=apellido_contacto
                         else:
                             raise Exception("Sus apellidos no cumplen con el estandar establecido")   
@@ -279,14 +279,14 @@ def updateCliente(id):
 
                     if not clientes.get("region"):
                         region = input("Ingrese la region del cliente (Eje: Barcelona): ")
-                        if re.match(r'^([A-Za-z]\s*)+$', region) is not None:
+                        if re.match(r'^[A-Z][a-zA-Z0-9\s]+$', region) is not None:
                             clientes["region"]=region
                         else:
                             raise Exception ("La region del cliente no cumple con el estandar, intentelo denuevo")  
                     
                     if not clientes.get("pais"):
                         pais = input("Ingrese el pais del cliente (Eje: España): ")
-                        if re.match(r'^([A-Za-z]\s*)+$', pais) is not None:
+                        if re.match(r'^[A-Z][a-zA-Z0-9\s]+$', pais) is not None:
                             clientes["pais"]=pais
                         else:
                             raise Exception ("El pais del cliente no cumple con el estandar, intentelo denuevo")
@@ -294,7 +294,7 @@ def updateCliente(id):
 
                     if(not clientes.get("codigo_postal")):
                         codigo_postal=input("Ingrese su codigo postal: ")
-                        if(re.match(r'^[0-9]{5}$',codigo_postal)is not None):
+                        if(re.match(r'^\d{4,6}$',codigo_postal)is not None):
                             codigo_postal= int(codigo_postal)
                             clientes["codigo_postal"]=codigo_postal
                         else:
@@ -303,7 +303,7 @@ def updateCliente(id):
                     
                     if not clientes.get("codigo_empleado_rep_ventas"):
                         codigoVent = input("Ingrese el codigo del representante de ventas: (Eje: 42): ")
-                        if re.match(r'^[0-9]+$', codigoVent) is not None:
+                        if re.match(r'^\d{2}$', codigoVent) is not None:
                             codigoVent = int(codigoVent)
                             clientes["codigo_empleado_rep_ventas"]=codigoVent
                         else:
@@ -324,11 +324,11 @@ def updateCliente(id):
                     
             peticion=requests.put(f"http://154.38.171.54:5001/cliente/{id}", data=json.dumps(clientes))
             res=peticion.json()
-            res["Mensaje"] = "Producto Guardado"
+            res["Mensaje"] = "Cliente Guardado"
             return [res]
     else:
         return[{
-            "message": "Producto no encontrado",
+            "message": "Cliente no encontrado",
             "id": id
         }]   
 
@@ -339,8 +339,8 @@ def menu():
 ADMINISTRAR DATOS DE CLIENTES
 0.Regresar al menu principal
 1.Guardar un cliente nuevo
-2.Eliminar
-3.Actualizar
+2.Eliminar un cliente
+3.Actualizar un cliente
     -PRESIONA CTRL + C PARA REGRESAR AL MENU PRINCIPAL
 """)
         

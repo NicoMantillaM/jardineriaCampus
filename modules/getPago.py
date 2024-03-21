@@ -8,6 +8,7 @@ def getAllDataPagos():
     data= peticion.json()
     return data 
 
+
 def getAllDataClient():
   #json-server storage/cliente.json -b 5507
   peticion=requests.get("http://154.38.171.54:5001/cliente")
@@ -19,6 +20,11 @@ def getAllDataEmpleado():
   peticion=requests.get("http://154.38.171.54:5003/empleados")
   data= peticion.json()
   return data
+
+def getPagoCodigo(id):
+   peticion = requests.get(f"http://154.38.171.54:5006/pagos/{id}") 
+   data = peticion.json()
+   return [data]
 
 def getAllIdTrans(id):
     for val in getAllDataPagos():

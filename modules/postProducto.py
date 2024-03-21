@@ -13,8 +13,8 @@ def postProducto():
     while True:
         try:
             if not producto.get("codigo_producto"):
-                codigo = input("Ingrese el codigo del producto (Eje:11679): ")
-                if re.match(r'^[0-9]+$', codigo) is not None:
+                codigo = input("Ingrese el codigo del producto (Eje:11): ")
+                if re.match(r'^[A-Z]{2}-\d{1,3}$', codigo) is not None:
                     data= gPro.getProductoCodigo(codigo)
                     if(data):
                         print(tabulate(data,tablefmt="Fancy_grid"))
@@ -26,7 +26,7 @@ def postProducto():
                 
             if not producto.get("nombre"):
                 nombre=input("Ingrese el nombre del producto: ")
-                if(re.match(r'^([A-Za-z][a-z]*\s*)+$',nombre)is not None):
+                if(re.match(r'^[A-Za-záéíóúüñ\s\d.,:;()-]+$',nombre)is not None):
                     producto["nombre"]=nombre
                 else:
                     raise Exception("El nombre del producto no cumple con el estandar, intentelo denuevo")
@@ -42,7 +42,7 @@ def postProducto():
             
             if(not producto.get("dimensiones")):
                 dimensiones=input("Ingrese las dimensiones del producto: ")
-                if(re.match(r'^[0-9]{2,3}-[0-9]{2,3}$',dimensiones)is not None):
+                if(re.match(r'^\d{1,3}\s*-\s*\d{1,3}$',dimensiones)is not None):
                      producto["dimensiones"]=dimensiones
                 else:
                     raise Exception("Las dimensiones del producto no cumplen con el estandar, intentelo denuevo")
@@ -56,7 +56,7 @@ def postProducto():
                 
             if(not producto.get("descripcion")):
                 descripcion=input("Ingrese la descripcion del producto: ")
-                if(re.match(r'^([A-Za-z][a-z]*\s*)+$',descripcion)is not None):
+                if(re.match(r'^[^\n]+$',descripcion)is not None):
                     producto["descripcion"]=descripcion
                 else:
                     raise Exception("La descripcion del producto no cumple con el estandar, intentelo denuevo")  
@@ -71,7 +71,7 @@ def postProducto():
                 
             if(not producto.get("precio_venta")):
                 precio_venta=input("Ingrese el precio de venta del producto: ")
-                if(re.match(r'^[0-9]{2,3}$',precio_venta)is not None):
+                if(re.match(r'^[0-9]{1,3}$',precio_venta)is not None):
                     precio_venta= int(precio_venta)
                     producto["precio_venta"]=precio_venta
                 else:
@@ -122,11 +122,10 @@ def updateProducto(id):
             try: 
                 if not producto.get("codigo_producto"):
                     codigo = input("Ingrese el codigo del producto (Eje:11679): ")
-                    if re.match(r'^[A-Z]{2}-[0-9]{2,3}$', codigo) is not None:
+                    if re.match(r'^[A-Z]{2}-\d{1,3}$', codigo) is not None:
                         data= gPro.getProductoCodigo2(codigo)
                         if(data):
                             print(tabulate(data,tablefmt="Fancy_grid"))
-                            raise Exception("El codigo del producto ya existe")
                         else:
                             producto["codigo_producto"]=codigo
                     else:
@@ -150,7 +149,7 @@ def updateProducto(id):
                 
                 if(not producto.get("dimensiones")):
                     dimensiones=input("Ingrese las dimensiones del producto: ")
-                    if(re.match(r'^[0-9]{2,3}-[0-9]{2,3}$',dimensiones)is not None):
+                    if(re.match(r'^\d{1,3}\s*-\s*\d{1,3}$',dimensiones)is not None):
                         producto["dimensiones"]=dimensiones
                     else:
                         raise Exception("Las dimensiones del producto no cumplen con el estandar, intentelo denuevo")
@@ -192,7 +191,7 @@ def updateProducto(id):
                         producto["precio_proveedor"]=precio_proveedor
                         break
                     else:
-                        raise Exception("El precio de venta del producto no cumple con el estandar, intentelo denuevo")     
+                        raise Exception("El precio del proveedor del producto no cumple con el estandar, intentelo denuevo")     
                     
             except Exception as error:
                 print(error)
@@ -207,11 +206,36 @@ def updateProducto(id):
             "id": id
         }] 
 
-def updateProducto2(id):
-    data= gPro.getProductoCodg(id)
-    if(len(data)):
-        print(tabulate(data, tablefmt="grid"))
-        
+# def updateProductoCodigo(iD):
+#     while True:
+#         # if opcion == 1:
+#         #     actuzali = input("ingrese el id a actualizar")
+#         #     if re.match(r"^[0-9]+$)", actuzali):
+#         #         actuzali = int(actuzali)
+#         if(iD != None):
+#             producto = gPro.getProductoCodg(iD)
+#             if (producto):
+#                 print(tabulate(producto, headers="keys", tablefmt="grid"))
+#                 opcion = int(input("""
+#                             ¿Este el producto que desea actualizar?
+#                                         1. Si
+#                                         2. No
+#                 """))
+#                 if (opcion):
+#                     headers = {'Content-type': 'application/json', 'charset': 'UTF-8'}
+#                     producto[0]["codigo_producto"] = input("Ingrese el nuevo codigo del producto: ")
+#                     peticion = requests.put(f"http://154.38.171.54:5008/productos/{producto[0].get("id")}", headers=headers , data=json.dumps(producto, indent=4))
+#                     data = peticion.json()
+#                     return [data[0]]
+#                 else:
+#                     iD = None
+#             else:
+#                 print(f"El producto {iD} no existe ")
+#                 iD = None
+#         else:
+#             iD = input("Ingrese el codigo del producto que desea actualizar: ") 
+
+       
 
 
 def menu():
@@ -247,3 +271,27 @@ ADMINISTRAR DATOS DE PRODUCTOS
         except KeyboardInterrupt:
             break
 
+
+#    while True: 
+#         while True:
+#             os.system ("clear")
+#             print("""
+                
+#                 ELIJA EL DATO QUE DESEA ACTUALIZAR:
+                  
+#                 1. Codigo_producto
+#                 2. Nombre
+#                 3. Gama
+#                 4. Dimensiones
+#                 5. Proveedor
+#                 6. Descripcion
+#                 7. Cantidad_en_stock
+#                 8. Precio_venta
+#                 9. Precio_proveedor
+#                   -PRESIONA CTRL + C PARA REGRESAR AL MENU PRINCIPAL
+#                 #    input("Precione una tecla para continuar.....")
+#                 """)
+#             opcion = int(input("Ingrese la opcion a actualizar: "))
+#             if(re.match(r'[0-9]+$', opcion)is not None):
+#                 opcion = int(opcion)
+#                 if(opcion>=0 and opcion<=9):

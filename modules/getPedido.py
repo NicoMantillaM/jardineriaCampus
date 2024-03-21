@@ -9,6 +9,12 @@ def getAllDataPedido():
   data= peticion.json()
   return data
 
+def getPedidoCodigo(id):
+   peticion = requests.get(f"http://154.38.171.54:5007/pedidos/{id}") 
+   data = peticion.json()
+   return [data]
+
+
 def getOnePedidoCodigo(codigo):
     for val in getAllDataPedido():
         if (val.get("codigo_cliente")== codigo):

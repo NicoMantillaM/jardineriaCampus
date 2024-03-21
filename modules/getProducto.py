@@ -13,15 +13,20 @@ def getProductoCodigo(codigo):
 
    return [peticion.json()] if peticion.ok else[]
 
-def getProductoCodg(id):
-   peticion = requests.get(f"http://154.38.171.54:5008/productos/{id}") 
-   return [peticion.json()] if peticion.ok else[]
+def getProductoCodg(iD):
+   peticion = requests.get(f"http://154.38.171.54:5008/productos?id={iD}") 
+   data= peticion.json()
+   if(len(data)==0):
+       data=None
+   return data
 
 
 def getProductoCodigo2(codigo):
     for val in getAllData():
         if (val.get("codigo_producto")== codigo):
             return [{val}]
+        
+
 
 #Devuelve un listado con todas los productos q pertenecen a la gama ornamentales
 #y q tienen mas de 100 unidades en stock. El listado debera estar ordenado por su precio de venta, mayor a menor

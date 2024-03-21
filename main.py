@@ -182,18 +182,6 @@ Menu Principal
 #     f1.write(data)
 #     f1.close()
 
-# {
-#     "codigo_producto": "AR-002",
-#     "nombre": "Lavándula Dentata",
-#     "gama": "Aromáticas",
-#     "dimensiones": "15-20",
-#     "proveedor": "Murcia Seasons",
-#     "descripcion": "Espliego de jardín, Alhucema rizada, Alhucema dentada, Cantueso rizado. Familia: Lamiaceae.Origen: España y Portugal. Mata de unos 60 cm de alto. Las hojas son aromáticas, dentadas y de color verde grisáceas.  Produce compactas espigas de flores pequeñas, ligeramente aromáticas, tubulares,de color azulado y con brácteas púrpuras.  Frutos: nuececillas alargadas encerradas en el tubo del cáliz.  Se utiliza en jardineria y no en perfumeria como otros cantuesos, espliegos y lavandas.  Tiene propiedades aromatizantes y calmantes. Adecuadas para la formación de setos bajos. Se dice que su aroma ahuyenta pulgones y otros insectos perjudiciales para las plantas vecinas.",
-#     "cantidadEnStock": 140,
-#     "precio_venta": 1,
-#     "precio_proveedor": 0,
-#     "id": "6"
-#   },
                 
 # http://154.38.171.54:5001/cliente
 # http://154.38.171.54:5002/detalle_pedido

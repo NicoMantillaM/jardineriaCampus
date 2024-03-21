@@ -8,6 +8,12 @@ def getAllDataOficina():
   data= peticion.json()
   return data
 
+def getOficinaCodigo(id):
+   peticion = requests.get(f"http://154.38.171.54:5005/oficinas/{id}") 
+   data = peticion.json()
+   return [data]
+
+
 def getAllOficinalefono(telefono):
     for val in getAllDataOficina():
         if (val.get("telefono") == telefono):

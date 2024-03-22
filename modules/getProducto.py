@@ -9,19 +9,10 @@ def getAllData():
     data = peticion.json()
     return data
 
+#PARA VALIDAR POR MEDIO DE(CODIGO) SI EL PRODUCTO EXISTE
 def getProductoCodigo(codigo):
    peticion = requests.get(f"http://154.38.171.54:5008/productos/{codigo}") 
-
    return [peticion.json()] if peticion.ok else[]
-
-
-# def getProductoCodg(iD):
-#    peticion = requests.get(f"http://154.38.171.54:5008/productos?id={iD}") 
-#    data= peticion.json()
-#    if(len(data)==0):
-#        data=None
-#    return data
-
 
 def getProductoCodigo2(codigo):
     for val in getAllData():

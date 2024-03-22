@@ -17,10 +17,12 @@ def getAllDataEmpleado():
   data= peticion.json()
   return data 
 
-def getClienteCodigo(id):
-   peticion = requests.get(f"http://154.38.171.54:5001/cliente/{id}") 
-   data = peticion.json()
-   return [data]
+def getClienteCodigo(codigo):
+  peticion = requests.get(f"http://154.38.171.54:5001/cliente/{codigo}") 
+  return [peticion.json()] if peticion.ok else[]
+
+  #  data = peticion.json()
+  #  return [data]
 
 
 def getAllClientesName():

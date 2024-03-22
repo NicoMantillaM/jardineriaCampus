@@ -9,10 +9,9 @@ def getAllDataPedido():
   data= peticion.json()
   return data
 
-def getPedidoCodigo(id):
-   peticion = requests.get(f"http://154.38.171.54:5007/pedidos/{id}") 
-   data = peticion.json()
-   return [data]
+def getPedidoCodigo(codigo):
+   peticion = requests.get(f"http://154.38.171.54:5007/pedidos/{codigo}") 
+   return [peticion.json()] if peticion.ok else[]
 
 
 def getOnePedidoCodigo(codigo):
@@ -22,6 +21,7 @@ def getOnePedidoCodigo(codigo):
             "codigo_pedido": val.get("codigo_pedido"),
         }]
 
+        
 
 #filtro 7
 def getAllEstadoPedido():

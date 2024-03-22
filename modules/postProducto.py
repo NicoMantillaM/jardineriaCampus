@@ -13,7 +13,7 @@ def postProducto():
     while True:
         try:
             if not producto.get("codigo_producto"):
-                codigo = input("Ingrese el codigo del producto (Eje:11): ")
+                codigo = input("Ingrese el codigo del producto (Eje:OR-242): ")
                 if re.match(r'^[A-Z]{2}-\d{1,3}$', codigo) is not None:
                     data= gPro.getProductoCodigo(codigo)
                     if(data):
@@ -78,7 +78,7 @@ def postProducto():
                     raise Exception("El precio de venta del producto no cumple con el estandar, intentelo denuevo")  
 
             if(not producto.get("precio_proveedor")):
-                precio_proveedor=input("Ingrese el precio de venta del producto: ")
+                precio_proveedor=input("Ingrese el precio de proveedor del producto: ")
                 if(re.match(r'^[0-9]{1,3}$',precio_proveedor)is not None):
                     precio_proveedor= int(precio_proveedor)
                     producto["precio_proveedor"]=precio_proveedor
@@ -97,22 +97,30 @@ def postProducto():
 def deleteProduct(id):
     data= gPro.getProductoCodigo(id)
     if(len(data)):
-
-        peticion = requests.delete(f"http://154.38.171.54:5008/productos/{id}")
-        if(peticion.status_code == 204):
-            data.append({"message": "producto eliminado correctamente"})
-            break
-            
+        while True:
+            try:
+                print("""
+                ¿Seguro que desea eliminar el producto?
+                      1.Si
+                      2.No
+                """)
+                opcion= (input("Seleccione la opcion Si o No: "))
+                if(re.match(r'^[1-2]$', opcion)is not None):
+                        opcion=int(opcion)
+                        if (opcion==1):
+                            peticion = requests.delete(f"http://154.38.171.54:5008/productos/{id}")
+                            if(peticion.status_code==204):
+                                return print("El producto se elimino efectivamente")
+                            break
+                        else:
+                            return print("El producto no se eliminara")
+                else:
+                    raise Exception("La opcion ingresada no cumple con el estandar, recuerda debe ser 1 o 2")
+            except Exception as error:
+                print(error)  
     else:
-        return [{ 
-            "message": "producto no encontrado",
-            "id": id
-        }]
-                
-                   
-            
-        
-   
+        return print("El producto no fue encontrado, recuerda ingresar un id valido")  
+
 
 def updateProducto(id):
     data= gPro.getProductoCodigo(id)
@@ -121,7 +129,7 @@ def updateProducto(id):
         while True:
             try: 
                 if not producto.get("codigo_producto"):
-                    codigo = input("Ingrese el codigo del producto (Eje:11679): ")
+                    codigo = input("Ingrese el codigo del producto (Eje:OR-242): ")
                     if re.match(r'^[A-Z]{2}-\d{1,3}$', codigo) is not None:
                         data= gPro.getProductoCodigo(codigo)
                         if(data):
@@ -185,7 +193,7 @@ def updateProducto(id):
                         raise Exception("El precio de venta del producto no cumple con el estandar, intentelo denuevo")  
 
                 if(not producto.get("precio_proveedor")):
-                    precio_proveedor=input("Ingrese el precio de venta del producto: ")
+                    precio_proveedor=input("Ingrese el precio de proveedor del producto: ")
                     if(re.match(r'^[0-9]{1,3}$',precio_proveedor)is not None):
                         precio_proveedor= int(precio_proveedor)
                         producto["precio_proveedor"]=precio_proveedor
@@ -201,7 +209,7 @@ def updateProducto(id):
         res["Mensaje"]= "Producto Guardado"
         return [res]
     else:
-        print ("noxd")
+        print ("El Producto no existe")
 
 # def updateProductoCodigo(iD):
 #     while True:
